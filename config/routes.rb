@@ -1,10 +1,11 @@
 AccupassFb::Application.routes.draw do
   root 'users#login'
 
-  get "/register" =>'users#register', :as=>'register'
-  get "/welcome" =>'users#welcome', :as=>'welcome'
+  get "/register" =>'users#register'
+  get "/welcome" =>'users#welcome'
+  post "/register" =>'users#create'
 
-  resources :users, only: [:create]
+  #resources :users, only: [:create]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

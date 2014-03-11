@@ -4,7 +4,7 @@
     .text-right
       =link_to  "用户登录",root_path
   %br
-  .index-login(style="text-align:center")
+  .index-login(style="padding-left:40px; padding-right:40px")
     =form_for :user do |f|
       .input-prepend
         = f.label :'帐号' ,:class=>"add-on",:style=>"width:100px"
@@ -22,7 +22,7 @@
         = f.label :'忘记密码答案' ,:class=>"add-on",:style=>"width:100px"
         = f.text_field :forgot_pw_answer ,:type=>"text",:style=>"width:350px"
       %div(class=" btn-danger active" )
-        -#-if @user.errors
+        -#-if @user.errors.any
         -#  = @user.errors
       %br
       %div(style="text-align:center;")
