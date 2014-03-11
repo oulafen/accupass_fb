@@ -1,1 +1,30 @@
-
+%div(style="background:#F5F5F5;margin-top:5%" class="modal fade in")
+  .nav-header
+    %h4 新用户注册
+    .text-right
+      =link_to  "用户登录",root_path
+  %br
+  %br
+  %div(class="index-login" style="text-align:center")
+    =form_for :user do |f|
+      .input-prepend
+        = f.label :'帐号' ,:class=>"add-on",:style=>"width:90px"
+        = f.text_field :name ,:type=>"text",:style=>"width:250px"
+      .input-prepend
+        = f.label :'密码' ,:class=>"add-on",:style=>"width:90px"
+        = f.text_field :password ,:type=>"password",:style=>"width:250px"
+      .input-prepend
+        = f.label :'请确认密码' ,:class=>"add-on",:style=>"width:90px"
+        = f.text_field :password_confirmation ,:type=>"password",:style=>"width:250px"
+      .input-prepend
+        = f.label :'忘记密码问题' ,:class=>"add-on",:style=>"width:90px"
+        = f.text_field :forgot_pw_question ,:type=>"text",:style=>"width:250px"
+      .input-prepend
+        = f.label :'忘记密码答案' ,:class=>"add-on",:style=>"width:90px"
+        = f.text_field :forgot_pw_answer ,:type=>"text",:style=>"width:250px"
+      %div(class=" btn-danger active" )
+        -#-if @user.errors
+        -#  = @user.errors
+      %br
+      %div(style="text-align:center;")
+        = f.submit "注  册", class: "btn"
