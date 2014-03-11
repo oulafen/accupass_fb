@@ -7,10 +7,10 @@
   .index-login(style="text-align:center")
     =form_for :user do |f|
       .input-prepend
-        = f.label :'帐号' ,:class=>"add-on",:style=>"width:100px"
+        = f.label :'帐号' ,:class=>"add-on-1"
         = f.text_field :name ,:type=>"text",:style=>"width:350px"
       .input-prepend
-        = f.label :'密码' ,:class=>"add-on",:style=>"width:100px"
+        = f.label :'密码' ,:class=>"add-on-1"
         = f.text_field :password ,:type=>"password",:style=>"width:350px"
 
       %div(class=" btn-danger active" )

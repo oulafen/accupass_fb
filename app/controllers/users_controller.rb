@@ -10,10 +10,6 @@ class UsersController < ApplicationController
 
   end
 
-  def errors
-
-  end
-
 
   def create
     @user = User.new(params[:user])
