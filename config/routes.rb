@@ -1,4 +1,5 @@
 AccupassFb::Application.routes.draw do
+  root 'users#login'
   get "users/login"
   get "users/register"
   get "users/welcome"
