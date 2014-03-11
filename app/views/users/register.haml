@@ -22,8 +22,8 @@
         = f.label :'忘记密码答案' ,:class=>"add-on",:style=>"width:100px"
         = f.text_field :forgot_pw_answer ,:type=>"text",:style=>"width:350px"
       %div(class=" btn-danger active" )
-        -#-if @user.errors.any
-        -#  = @user.errors
+        -if @user.errors.any?
+          = @user.errors.full_messages.first
       %br
       %div(style="text-align:center;")
         = f.submit "注  册", class: "btn", style:'width:150px'
