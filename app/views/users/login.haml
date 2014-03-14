@@ -15,8 +15,6 @@
 
       %div(class=" btn-danger active" )
         =flash.now[:error]
-        -#-if @user.errors.any?
-        -#  = @user.errors.full_message.first
       .nav-header
         .text-right
           =link_to  "忘记密码"

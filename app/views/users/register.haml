@@ -11,7 +11,7 @@
       -#    = @user.errors.full_messages.first
       .input-prepend
         = f.label :'帐号' ,:class=>"add-on-1"
-        = f.text_field :name ,:type=>"text",:style=>"width:350px"
+        = f.text_field :name ,:class=>'form-control',:style=>"width:350px"
       .input-prepend
         = f.label :'密码' ,:class=>"add-on-1"
         = f.text_field :password ,:type=>"password",:style=>"width:350px"
