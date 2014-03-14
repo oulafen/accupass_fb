@@ -5,7 +5,7 @@
       =link_to  "用户注册",register_path
   %br
   .index-login(style="text-align:center")
-    =form_for :user do |f|
+    =form_for :user, url:create_login_session_path, method:'post' do |f|
       .input-prepend
         = f.label :'帐号' ,:class=>"add-on-1"
         = f.text_field :name ,:type=>"text",:style=>"width:350px"
@@ -14,10 +14,11 @@
         = f.text_field :password ,:type=>"password",:style=>"width:350px"
 
       %div(class=" btn-danger active" )
-        -#-if @user.errors
-        -#  = @user.errors
+        -#-if @user.errors.any?
+        -#  = @user.errors.full_message.first
       .nav-header
         .text-right
           =link_to  "忘记密码"
       %div(style="text-align:center;")
         = f.submit "登   录", class: "btn", style:'width:150px'
+      =flash.now[:notice]

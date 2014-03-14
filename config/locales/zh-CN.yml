@@ -1,0 +1,22 @@
+zh-CN:
+  activerecord:
+    attributes:
+      user:
+        name: '用户名'
+        password: "密码"
+        password_confirmation: "请再次输入"
+        fogot_pw_question: "忘记密码问题"
+        fogot_pw_answer: "忘记密码答案"
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "不能为空"
+              taken: "已占用"
+            password:
+              blank: "不能为空"
+            password:
+              confirmation: "密码不匹配"
+
+# zh-CN.activerecord.errors.models.user.attributes.password.blank

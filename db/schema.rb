@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140311021030) do
+ActiveRecord::Schema.define(version: 20140314051410) do
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140311021030) do
     t.string   "forgot_pw_answer"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "token"
   end
 
 end

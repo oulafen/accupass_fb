@@ -3,7 +3,9 @@ AccupassFb::Application.routes.draw do
 
   get "/register" =>'users#register'
   get "/welcome" =>'users#welcome'
+
   post "/register" =>'users#create'
+  post '/create_login_session' => 'users#create_login_session'
 
   #resources :users, only: [:create]
   # The priority is based upon order of creation: first created -> highest priority.
