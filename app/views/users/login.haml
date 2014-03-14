@@ -1,22 +1,22 @@
-%div(style="background:#F5F5F5;margin-top:5%" class="modal fade in")
+.modal.fade.in(style="background:#F5F5F5;margin-top:5%")
   .nav-header
     %h4 用户登录
-    .text-right
+  .index-login.padding
+    .nav-header.text-right
       =link_to  "用户注册",register_path
-  %br
-  .index-login(style="text-align:center")
+
     =form_for :user, url:create_login_session_path, method:'post' do |f|
       .input-prepend
         = f.label :'帐号' ,:class=>"add-on-1"
-        = f.text_field :name ,:type=>"text",:style=>"width:350px"
+        = f.text_field :name, :class=>"wid-350"
       .input-prepend
-        = f.label :'密码' ,:class=>"add-on-1"
-        = f.text_field :password ,:type=>"password",:style=>"width:350px"
+        = f.label :'密码', :class=>"add-on-1"
+        = f.text_field :password, :type=>"password", :class=>"wid-350"
 
-      %div(class=" btn-danger active" )
+      .btn-danger.active
         =flash.now[:error]
-      .nav-header
-        .text-right
-          =link_to  "忘记密码"
-      %div(style="text-align:center;")
+
+      .nav-header.text-right
+        =link_to  "忘记密码"
+      %div
         = f.submit "登   录", class: "btn", style:'width:150px'
