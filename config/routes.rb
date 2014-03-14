@@ -1,4 +1,6 @@
 AccupassFb::Application.routes.draw do
+  get "admins/manager_index"
+  get "admins/add_user"
   root 'users#login'
 
   get "/register" =>'users#register'
