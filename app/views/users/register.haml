@@ -6,9 +6,9 @@
   %br
   .index-login.padding
     =form_for :user do |f|
-      %div(class=" btn-danger active" )
-        -if @user.errors.any?
-          = @user.errors.full_messages.first
+      -#%div(class=" btn-danger active" )
+      -#  -if @user.errors.any?
+      -#    = @user.errors.full_messages.first
       .input-prepend
         = f.label :'帐号' ,:class=>"add-on-1"
         = f.text_field :name ,:type=>"text",:style=>"width:350px"
@@ -24,7 +24,9 @@
       .input-prepend
         = f.label :'忘记密码答案' ,:class=>"add-on-1"
         = f.text_field :forgot_pw_answer ,:type=>"text",:style=>"width:350px"
-
+      %div(class=" btn-danger active" )
+        -if @user.errors.any?
+          = @user.errors.full_messages.first
       %br
       %div(style="text-align:center;")
         = f.submit "注  册", class: "btn", style:'width:150px'

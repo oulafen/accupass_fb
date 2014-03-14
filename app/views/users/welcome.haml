@@ -2,6 +2,6 @@
   %br
   %i 你好,
   %i
-    =params[:name]
+    = @user
   %i
-    =link_to '退出'
+    =link_to '退出',root_path,:action => 'logout',:controller => 'users'

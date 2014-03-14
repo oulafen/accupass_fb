@@ -3,6 +3,7 @@ AccupassFb::Application.routes.draw do
 
   get "/register" =>'users#register'
   get "/welcome" =>'users#welcome'
+  #get "/login" =>'users#login'
 
   post "/register" =>'users#create'
   post '/create_login_session' => 'users#create_login_session'

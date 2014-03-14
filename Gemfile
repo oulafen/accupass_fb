@@ -38,6 +38,8 @@ end
 gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'haml'
 gem 'protected_attributes'
+
+gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
 # Use unicorn as the app server

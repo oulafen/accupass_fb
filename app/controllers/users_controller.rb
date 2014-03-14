@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   def login
-    @user= User.new
   end
 
   def register
@@ -8,6 +7,7 @@ class UsersController < ApplicationController
   end
 
   def welcome
+    @user = session[:name]
 
   end
 
@@ -15,25 +15,27 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+      session[:name] = params[:user][:name]
       redirect_to :welcome
-      #, :notice => '注册成功'
     else
       render :register
     end
   end
 
   def create_login_session
-    user=User.find_by_name(params[:name])
-    if user && user.authenticate(params[:password])
-      cookies.permanent[:token]=user.token
-      redirect_to welcome, :notice => '登录成功'
-    else
-      #flash[:error]='无效的用户名或密码'
-      #puts 'user------>'
+    @user=User.find_by_name(params[:user][:name])
 
-      render :login, :notice =>'无效的用户名或密码'
+    if @user && @user.authenticate(params[:user][:password])
+      session[:name] = params[:user][:name]
+      redirect_to :welcome
+    else
+      flash.now[:error]= '无效的用户名或密码'
+      render :login
     end
   end
 
+  def logout
+    session[:name]=nil
+  end
 end
 

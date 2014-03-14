@@ -14,6 +14,7 @@
         = f.text_field :password ,:type=>"password",:style=>"width:350px"
 
       %div(class=" btn-danger active" )
+        =flash.now[:error]
         -#-if @user.errors.any?
         -#  = @user.errors.full_message.first
       .nav-header
@@ -21,4 +22,3 @@
           =link_to  "忘记密码"
       %div(style="text-align:center;")
         = f.submit "登   录", class: "btn", style:'width:150px'
-      =flash.now[:notice]
