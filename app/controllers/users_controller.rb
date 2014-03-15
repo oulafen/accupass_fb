@@ -7,12 +7,12 @@ class UsersController < ApplicationController
   end
 
   def welcome
-    @user = Admin.find_by_name(session[:name]) ? '管理员' : session[:name]
+    @user = session[:name]
   end
-
 
   def create
     @user = User.new(params[:user])
+
     if @user.save
       session[:name] = params[:user][:name]
       redirect_to :welcome
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
         redirect_to :welcome
       end
     else
-      flash.now[:error]= '无效的用户名或密码'
+      flash.now[:error] = '无效的用户名或密码'
       render :login
     end
   end
@@ -41,10 +41,9 @@ class UsersController < ApplicationController
     @user=User.find_by_name(user[:name])
     if @admin && @admin.password==user[:password]
       return @admin
-    else
-      if @user && @user.authenticate(user[:password])
-        return @user
-      end
+    end
+    if @user && @user.authenticate(user[:password])
+      return @user
     end
   end
 
