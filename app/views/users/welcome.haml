@@ -1,7 +1,8 @@
 .header-right
   %br
-  %i 你好,
-  %i
+  %span 你好,
+  %span
     = @user
-  %i
+    &nbsp&nbsp
+  %span
     =link_to '退出',root_path,:action => 'logout',:controller => 'users'

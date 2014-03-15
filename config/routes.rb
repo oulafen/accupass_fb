@@ -7,6 +7,7 @@ AccupassFb::Application.routes.draw do
   get "/welcome" =>'users#welcome'
   get "/manager_index" =>'admins#manager_index'
   get "/add_user" =>'admins#add_user'
+  get '/create_login_session'=>'admins#manager_index'
 
   post "/register" =>'users#create'
   post '/create_login_session' => 'users#create_login_session'
