@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def manager_index
     @user=User.where(:login_type=>'user')
+    @pages_user=@user.paginate :page => params[:page], :per_page => 10
 
   end
 
