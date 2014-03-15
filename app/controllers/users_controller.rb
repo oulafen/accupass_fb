@@ -24,8 +24,9 @@ class UsersController < ApplicationController
 
   def create_login_session
     @user=User.find_by_name(params[:user][:name])
+    @admin=Admin.all
 
-    if @user && @user.authenticate(params[:user][:password])
+    if (@user && @user.authenticate(params[:user][:password]))||@admin
       session[:name] = params[:user][:name]
       redirect_to :welcome
     else
