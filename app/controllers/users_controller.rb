@@ -2,6 +2,16 @@ class UsersController < ApplicationController
   def login
   end
 
+  def manager_index
+    @user=User.where(:login_type=>'user')
+
+  end
+
+  def add_user
+
+  end
+
+
   def register
     @user= User.new
   end
@@ -22,10 +32,11 @@ class UsersController < ApplicationController
   end
 
   def create_login_session
-    login_person=login_validate(params[:user])
-    if login_person
-      if Admin.find_by_name(login_person.name)
-        redirect_to "/admins/manager_index"
+    login_person= User.find_by_name(params[:user][:name])
+
+    if login_person && login_person.authenticate(params[:user][:password])
+      if login_person[:login_type]=='admin'
+        redirect_to :manager_index
       else
         session[:name] = params[:user][:name]
         redirect_to :welcome
@@ -33,17 +44,6 @@ class UsersController < ApplicationController
     else
       flash.now[:error] = '无效的用户名或密码'
       render :login
-    end
-  end
-
-  def login_validate(user)
-    @admin=Admin.find_by_name(user[:name])
-    @user=User.find_by_name(user[:name])
-    if @admin && @admin.password==user[:password]
-      return @admin
-    end
-    if @user && @user.authenticate(user[:password])
-      return @user
     end
   end
 
