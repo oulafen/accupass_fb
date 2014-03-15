@@ -24,7 +24,6 @@
       .btn-danger.active
         -if @user.errors.any?
           = @user.errors.full_messages.first
-        -#=flash.now[:notice]
 
       %div
         = f.submit "注  册", class: "btn", style:'width:150px'

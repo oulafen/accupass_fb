@@ -9,7 +9,9 @@ class UsersController < ApplicationController
   end
 
   def add_user
-
+    @user=User.new
+    #@user=User.new(params[:user])
+    #@user.save
   end
 
 
@@ -30,6 +32,11 @@ class UsersController < ApplicationController
     else
       render :register
     end
+  end
+
+  def save_add_user
+    @user = User.new(params[:user])
+    @user.save
   end
 
   def create_login_session

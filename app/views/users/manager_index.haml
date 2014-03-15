@@ -1,8 +1,4 @@
-.header-right
-  %br
-  %span 你好,管理员&nbsp&nbsp
-  %span
-    =link_to '退出',root_path,:action => 'logout',:controller => 'users'
+=render 'users/admin_header'
 .box-1
   .modal-header(style="background:#F5F5F5")
     %span.h4-1 用户管理&nbsp&nbsp&nbsp

@@ -42,7 +42,6 @@ gem 'protected_attributes'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
-gem 'will-paginate-i18n', :git => 'https://github.com/afunction/will-paginate-i18n'
 # Use unicorn as the app server
 # gem 'unicorn'
 

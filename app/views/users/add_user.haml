@@ -1,1 +1,37 @@
-%h1Admins#add_user
+=render 'users/admin_header'
+
+.row(style="background:#eeeeee;margin-top:4.5% ")
+  .col-md-8(style=" height:30px; margin-left:4%")
+
+    =link_to '首页',manager_index_path
+    %span(style=" font-color:red !important")
+      &nbsp/&nbsp添加用户
+
+.modal.fade.in(style="background:#F5F5F5;margin-top:5%")
+  .index-login.padding
+    %br
+    %br
+    =form_for :user do |f|
+      .input-prepend
+        = f.label :'帐号', :class=>"add-on-1"
+        = f.text_field :name, :class=>"wid-350"
+      .input-prepend
+        = f.label :'密码', :class=>"add-on-1"
+        = f.text_field :password, :type=>"password", :class=>"wid-350"
+      .input-prepend
+        = f.label :'请确认密码' ,:class=>"add-on-1"
+        = f.text_field :password_confirmation, :type=>"password", :class=>"wid-350"
+      .input-prepend
+        = f.label :'忘记密码问题' ,:class=>"add-on-1"
+        = f.text_field :forgot_pw_question, :class=>"wid-350"
+      .input-prepend
+        = f.label :'忘记密码答案' ,:class=>"add-on-1"
+        = f.text_field :forgot_pw_answer, :class=>"wid-350"
+
+      .btn-danger.active
+        -if @user.errors.any?
+          = @user.errors.full_messages.first
+
+      %div
+        = f.submit "确认添加", class: "btn", style:'width:150px'
+
