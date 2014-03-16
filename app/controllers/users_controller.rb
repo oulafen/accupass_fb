@@ -3,24 +3,25 @@ class UsersController < ApplicationController
   end
 
   def manager_index
-    @user=User.where(:login_type=>'user')
-    @pages_user=@user.paginate :page => params[:page], :per_page => 10
-
+    @user = User.where(:login_type => 'user')
+    @pages_user = @user.paginate :page => params[:page], :per_page => 10
   end
 
   def add_user
-    @user=User.new
-    #@user=User.new(params[:user])
-    #@user.save
+    @user = User.new
   end
 
 
   def register
-    @user= User.new
+    @user = User.new
   end
 
   def welcome
     @user = session[:name]
+  end
+
+  def change_password
+    @user = User.new
   end
 
   def create
@@ -42,11 +43,10 @@ class UsersController < ApplicationController
     else
       render :add_user
     end
-
   end
 
   def create_login_session
-    login_person= User.find_by_name(params[:user][:name])
+    login_person = User.find_by_name(params[:user][:name])
 
     if login_person && login_person.authenticate(params[:user][:password])
       if login_person[:login_type]=='admin'
@@ -67,7 +67,7 @@ class UsersController < ApplicationController
   end
 
   def logout
-    session[:name]=nil
+    session[:name] = nil
   end
 
 
