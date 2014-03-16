@@ -34,9 +34,15 @@ class UsersController < ApplicationController
     end
   end
 
-  def save_add_user
+  def save_user
+    puts
     @user = User.new(params[:user])
-    @user.save
+    if @user.save
+      redirect_to :add_user
+    else
+      render :add_user
+    end
+
   end
 
   def create_login_session

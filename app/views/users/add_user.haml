@@ -11,7 +11,7 @@
   .index-login.padding
     %br
     %br
-    =form_for :user do |f|
+    =form_for :user ,:url=>'add_user' do |f|
       .input-prepend
         = f.label :'帐号', :class=>"add-on-1"
         = f.text_field :name, :class=>"wid-350"
