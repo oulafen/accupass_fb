@@ -32,8 +32,8 @@ class UsersController < ApplicationController
        @user.password = params[:user][:password]
        @user.password_confirmation = params[:user][:password_confirmation]
        if @user.save
-         #:confirm=> '修改成功'
-         redirect_to :manager_index
+          session[:success]='true'
+          render :change_password
        end
 
 

@@ -1,0 +1,14 @@
+.modal.hide#change_success
+  .modal-body
+    %button.close(type="button" id='m') &times
+    .text-center
+      %span(style='font-size:30px')
+        修改成功！
+
+:javascript
+  $(document).ready(function(){
+      $('#change_success').show(1000)
+      })
+  $('#m').click(function(){
+       $('#change_success').hide(1000)
+       })
