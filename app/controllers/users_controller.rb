@@ -55,9 +55,14 @@ class UsersController < ApplicationController
     end
   end
 
-    def logout
-      session[:name]=nil
-    end
+  def del_user
+    User.find_by_id(params[:id]).delete
+    redirect_to :manager_index
+  end
+
+  def logout
+    session[:name]=nil
+  end
 
 
 end

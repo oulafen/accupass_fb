@@ -17,7 +17,8 @@
           %td
             =t.name
           %td
-            =link_to "删除"
+            =link_to "删除",del_user_path(:id => t.id), :method => :delete, :confirm=>"您确定要删除 #{t.name}?"
             =link_to "修改密码"
   .modal-footer
     = will_paginate(@pages_user)
+-#:confirm =>

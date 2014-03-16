@@ -12,6 +12,8 @@ AccupassFb::Application.routes.draw do
   post "/register" =>'users#create'
   post "/add_user" =>'users#save_add_user'
   post '/create_login_session' => 'users#create_login_session'
+  delete  '/del_user'=> 'users#del_user'
+
 
   #resources :users, only: [:create]
   # The priority is based upon order of creation: first created -> highest priority.
