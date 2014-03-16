@@ -21,8 +21,40 @@ class UsersController < ApplicationController
   end
 
   def change_password
-    @user = User.new
+    @user = User.find_by_name(params[:name])
+    session[:current_change_name]=params[:name]
   end
+
+  def update_password
+    judge_pw=judge_change_password(params[:user])
+    @user=User.find_by_name(session[:current_change_name])
+    if judge_pw=='authorized'
+       @user.password = params[:user][:password]
+       @user.password_confirmation = params[:user][:password_confirmation]
+       if @user.save
+         #:confirm=> '修改成功'
+         redirect_to :manager_index
+       end
+
+
+    else
+      flash.now[:notice] = judge_pw=='empty' ? '输入不能为空' : '两次密码输入不一致'
+      render :change_password
+    end
+  end
+
+  def judge_change_password(user)
+    if user[:password]=='' || user[:password_confirmation]==''
+      return 'empty'
+    else if user[:password]!=user[:password_confirmation]
+      return 'unequal'
+    else
+      return 'authorized'
+      end
+    end
+  end
+
+
 
   def create
     @user = User.new(params[:user])

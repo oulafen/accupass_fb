@@ -13,6 +13,7 @@ AccupassFb::Application.routes.draw do
   post "/register" =>'users#create'
   post "/add_user" =>'users#save_user'
   post '/create_login_session' => 'users#create_login_session'
+  post '/update_password' => 'users#update_password'
 
   delete  '/del_user'=> 'users#del_user'
 
