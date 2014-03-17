@@ -3,9 +3,7 @@
     %h4 重置密码
   .index-login.padding
     .nav-header.text-right
-      =link_to  "用户登录",login_path
-    %br
-    %br
+      =link_to  "用户登录",root_path
     =form_for :user ,:url=>'#'  do |f|
       .input-prepend
         = f.label :'忘记密码问题', :class=>"add-on-1"
