@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     user = User.find_by_name(params[:user][:name])
     if user
       session[:forgot_pw_user_name] = params[:user][:name]
-      redirect_to :forgot_2
+      redirect_to :forgot_2, :method=>'post'
     else
       render :forgot_1
     end
@@ -41,7 +41,16 @@ class UsersController < ApplicationController
 
   def forgot_2
     @user = User.find_by_name(session[:forgot_pw_user_name])
+  end
 
+  def judge_q_and_a
+    @user=User.find_by_name(session[:forgot_pw_user_name])
+    if @user.forgot_pw_answer==params[:user][:forgot_pw_answer]
+      redirect_to :forgot_3
+    else
+      flash.now[:notice]='忘记密码答案错误'
+      render :forgot_2
+    end
   end
 
   def update_password

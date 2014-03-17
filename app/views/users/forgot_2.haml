@@ -4,14 +4,14 @@
   .index-login.padding
     .nav-header.text-right
       =link_to  "用户登录",root_path
-    =form_for :user ,:url=>'#'  do |f|
+    =form_for :user, :url=>'judge_q_and_a'  do |f|
       .input-prepend
         = f.label :'忘记密码问题', :class=>"add-on-1"
         = f.text_field :forgot_pw_question, :disabled =>"disabled", :placeholder=>'#{f.forgot_pw_question}', :class=>"add-on-2"
       .input-prepend
         = f.label :'忘记密码答案' ,:class=>"add-on-1"
-        = f.text_field :forgot_pw_answer, :class=>"wid-350"
+        = f.text_field :forgot_pw_answer, :class=>"wid-350", :placeholder=>'请输入答案'
       .btn-danger.active
         =flash.now[:notice]
       %div
-        = f.submit "确认修改", class: "btn", style:'width:150px'
+        = f.submit "下一步", class: "btn", style:'width:150px'
