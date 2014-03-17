@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   end
 
   def manager_index
+    session[:success]=''
     @user = User.where(:login_type => 'user')
     @pages_user = @user.paginate :page => params[:page], :per_page => 10
   end

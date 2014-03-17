@@ -4,11 +4,14 @@
     .text-center
       %span(style='font-size:30px')
         修改成功！
+  .modal-footer
+    =link_to '确定', :manager_index, :method=>'get', :class=> 'btn btn-default'
+
 
 :javascript
   $(document).ready(function(){
-      $('#change_success').show(1000)
+      $('#change_success').show(500)
       })
   $('#m').click(function(){
-       $('#change_success').hide(1000)
+       $('#change_success').hide(500)
        })
