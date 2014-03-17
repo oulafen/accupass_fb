@@ -23,7 +23,25 @@ class UsersController < ApplicationController
 
   def change_password
     @user = User.find_by_name(params[:name])
-    session[:current_change_name]=params[:name]
+    session[:current_change_name] = params[:name]
+  end
+
+  def forgot_pw_1
+    if params[:user][:name]==''
+      flash.now[:notice] = '账号不能为空'
+    end
+    user = User.find_by_name(params[:user][:name])
+    if user
+      session[:forgot_pw_user_name] = params[:user][:name]
+      redirect_to :forgot_2
+    else
+      render :forgot_1
+    end
+  end
+
+  def forgot_2
+    @user = User.find_by_name(session[:forgot_pw_user_name])
+
   end
 
   def update_password
@@ -36,8 +54,6 @@ class UsersController < ApplicationController
           session[:success]='true'
           render :change_password
        end
-
-
     else
       flash.now[:notice] = judge_pw=='empty' ? '输入不能为空' : '两次密码输入不一致'
       render :change_password
@@ -55,11 +71,8 @@ class UsersController < ApplicationController
     end
   end
 
-
-
   def create
     @user = User.new(params[:user])
-
     if @user.save
       session[:name] = params[:user][:name]
       redirect_to :welcome
@@ -80,7 +93,6 @@ class UsersController < ApplicationController
 
   def create_login_session
     login_person = User.find_by_name(params[:user][:name])
-
     if login_person && login_person.authenticate(params[:user][:password])
       if login_person[:login_type]=='admin'
         redirect_to :manager_index

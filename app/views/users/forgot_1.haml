@@ -4,7 +4,7 @@
   .index-login.padding
     .nav-header.text-right
       =link_to  "用户登录",root_path
-    =form_for :user ,:url=>'#'  do |f|
+    =form_for :user ,:url=>'forgot_pw_1'  do |f|
       .input-prepend
         = f.label :'账号', :class=>"add-on-1"
         = f.text_field :name, :placeholder=>'请输入账号名', :class=>"add-on-2"
