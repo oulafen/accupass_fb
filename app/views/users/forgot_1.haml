@@ -1,0 +1,17 @@
+.modal.fade.in(style="background:#F5F5F5;margin-top:5%")
+  .nav-header
+    %h4 重置密码
+  .index-login.padding
+    .nav-header.text-right
+      =link_to  "用户登录",login_path
+    %br
+    %br
+    =form_for :user ,:url=>'#'  do |f|
+      .input-prepend
+        = f.label :'账号', :class=>"add-on-1"
+        = f.text_field :name, :placeholder=>'请输入账号名', :class=>"add-on-2"
+
+      .btn-danger.active
+        =flash.now[:notice]
+      %div
+        = f.submit "下一步", class: "btn", style:'width:150px'
