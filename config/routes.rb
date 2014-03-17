@@ -18,7 +18,7 @@ AccupassFb::Application.routes.draw do
   post '/create_login_session' => 'users#create_login_session'
   post '/update_password' => 'users#update_password'
   post '/judge_q_and_a' => 'users#judge_q_and_a'
-  post '/forgot_pw_3' => 'users#forgot_pw_3'
+  post '/update_reset_password' => 'users#update_reset_password'
   post '/forgot_pw_1' => 'users#forgot_pw_1'
 
   delete  '/del_user'=> 'users#del_user'
