@@ -142,6 +142,16 @@ class UsersController < ApplicationController
     session[:name] = nil
   end
 
+  def process_phone_login
+    user = User.find_by_name(params[:name])
+    respond_to do |format|
+      if user && user.authenticate( params[:password])
+        format.json { render json: 'true' }
+      else
+        format.json { render json: 'false' }
+      end
+    end
+  end
 
 end
 
