@@ -2,12 +2,15 @@ function SignUp(name,phone){
     this.name=name;
     this.phone=phone;
 }
+
 SignUp.get_sign_up_status=function(){
     return localStorage.getItem('sign_up_status');
 }
+
 SignUp.save_sign_up_status=function(status){
     localStorage.setItem('sign_up_status',status);
 }
+
 SignUp.update_sign_up_activities=function(present_activity){
     var activities = JSON.parse(localStorage.getItem('activities'));
     _.each(activities, function (activity) {

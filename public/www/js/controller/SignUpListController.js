@@ -11,6 +11,7 @@ function SignUpListController($scope, $navigate) {
             return 'end'
         }
     }
+
     $scope.button_status_init=function() {
         $scope.click_activity = Activity.get_click_activity();
         $scope.present_activity = Activity.get_present_activity();
@@ -28,6 +29,7 @@ function SignUpListController($scope, $navigate) {
             $scope.status = $scope.status_map[$scope.present_activity.active_status]()
             : $scope.status = $scope.status_map[$scope.click_activity.active_status]();
     }
+
     $scope.sign_up_unbegin = function () {
         $scope.status = 'beginning';
         $scope.present_activity = $scope.click_activity;
@@ -36,6 +38,7 @@ function SignUpListController($scope, $navigate) {
         SignUp.update_sign_up_activities($scope.present_activity)
         SignUp.save_sign_up_status('beginning');
     }
+
     $scope.sign_up_beginning = function () {
         if (confirm('确认要结束本次报名吗？')) {
                 SignUp.save_sign_up_status('end');
@@ -43,17 +46,22 @@ function SignUpListController($scope, $navigate) {
                 $navigate.go('/bid/list');
         }
     }
+
     $scope.get_peoples=function(){
         $scope.present_activity = Activity.get_present_activity();
         $scope.peoples = $scope.present_activity.apply_people;
     }
+
     $scope.go_list = function () {
         $navigate.go('/activity/list', 'slide', 'right');
     }
+
     $scope.go_bid_list = function(){
         $navigate.go('/bid/list');
     }
+
     $scope.button_status_init();
+
     $scope.get_peoples();
 }
 

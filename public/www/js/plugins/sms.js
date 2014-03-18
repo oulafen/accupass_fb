@@ -40,6 +40,7 @@ function check_message(message_json) {
         return true;
     }
 }
+
 function get_bm_or_jj(message_json) {
     return message_json.messages[0].message.substring(0, 2).toUpperCase();
 }

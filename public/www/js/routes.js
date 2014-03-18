@@ -1,7 +1,10 @@
 myModule.config(function($routeProvider) {
     $routeProvider.when("/", {
-        templateUrl: "www/pages/activity_create_page.html",
-        controller:ActivityCreateController
+        templateUrl: "www/pages/phone_login_page.html",
+        controller:PhoneLoginController
+        }).when("/activity/create", {
+            templateUrl: "www/pages/activity_create_page.html",
+            controller:ActivityListController
         }).when("/activity/list", {
             templateUrl: "www/pages/activity_list_page.html",
             controller:ActivityListController

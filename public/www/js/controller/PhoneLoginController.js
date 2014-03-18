@@ -1,0 +1,4 @@
+function PhoneLoginController($scope,$navigate){
+
+
+}

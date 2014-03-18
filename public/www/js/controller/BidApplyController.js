@@ -4,6 +4,7 @@ function BidApplyController($scope, $navigate) {
         'yellow': 'beginning',
         'lightgray': 'end'
     }
+
     $scope.bid_apply_begin_button_status_init = function () {
         $scope.present_biding = Bid.get_present_biding();
         $scope.click_biding = Bid.get_click_biding();
@@ -16,13 +17,16 @@ function BidApplyController($scope, $navigate) {
                 $scope.status_map[$scope.click_biding.bid_status];
         }
     }
+
     $scope.go_bid_list = function () {
         $navigate.go('/bid/list');
     }
+
     $scope.get_bid_peoples = function () {
         $scope.present_biding = Bid.get_present_biding();
         $scope.bid_peoples = $scope.present_biding.bid_people;
     }
+
     $scope.bid_apply_unbegin = function () {
         $scope.present_activity = Activity.get_present_activity();
         $scope.status = 'beginning';
@@ -38,6 +42,7 @@ function BidApplyController($scope, $navigate) {
             Bid.save_present_biding_name($scope.present_biding.bid_name);
         }
     }
+
     $scope.bid_apply_beginning = function () {
         $scope.present_activity = Activity.get_present_activity();
         if (confirm('确定要结束本次竞价吗？')) {
@@ -51,8 +56,11 @@ function BidApplyController($scope, $navigate) {
             $navigate.go('/bid/result');
         }
     }
+
     $scope.click_biding_name = Bid.get_click_biding_name();
+
     $scope.bid_apply_begin_button_status_init();
+
     $scope.get_bid_peoples();
 }
 
