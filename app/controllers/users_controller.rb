@@ -59,12 +59,16 @@ class UsersController < ApplicationController
     if judge_pw == 'unequal'
       flash.now[:notice] = '两次密码输入不一致'
       render :forgot_3
-    else
-      session[:name] = user.name
-      user.password = params[:user][:password]
-      user.password_confirmation = params[:user][:password_confirmation]
-      user.save
-      redirect_to :welcome
+    else if judge_pw == 'empty'
+           flash.now[:notice] = '输入不能为空'
+           render :forgot_3
+      else
+        session[:name] = user.name
+        user.password = params[:user][:password]
+        user.password_confirmation = params[:user][:password_confirmation]
+        user.save
+        redirect_to :welcome
+      end
     end
   end
 

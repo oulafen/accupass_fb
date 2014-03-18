@@ -1,0 +1,50 @@
+.button_position{
+    height:40px;
+    line-height:45px;
+}
+.activity_on_being{
+    background: yellow;
+}
+.height-50px{
+    height:50px;
+}
+.height-10-percent{
+    height:10%
+}
+.font-size-18px{
+    font-size:18px
+}
+.font-size-20px{
+    font-size:20px
+}
+.font-size-30px{
+    font-size:30px
+}
+.overflow-hidden{
+    overflow: hidden
+}
+.text-vertical-align{
+    height:40px;
+    line-height:40px
+}
+.text-align-left{
+    text-align:left
+}
+.text-align-center{
+    text-align: center;
+}
+.float-left{
+    float:left
+}
+.color-red{
+    color:red
+}
+.width-100-percent{
+    width:100%
+}
+.background-gray{
+    background:gray
+}
+.background-orange{
+    background: orange;
+}
