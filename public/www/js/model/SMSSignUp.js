@@ -1,4 +1,6 @@
-function SMSSignUp(name, phone) {
+function SMSSignUp( name, phone) {
+    this.activity_name = localStorage.getItem('present_activity_name');
+    this.user = localStorage.user;
     this.name = name;
     this.phone = phone;
 }
@@ -13,20 +15,15 @@ SMSSignUp.reconstruct_bm_message = function (message_json) {
 }
 
 SMSSignUp.judge_bm_repeat = function (phone) {
-    return _.find(Activity.get_present_activity().apply_people, function (people) {
+    return _.find(Activity.get_sign_ups(), function (people) {
         return people.phone == phone
     });
 }
 
-SMSSignUp.save_bm_message_to_activities = function (message) {
-    var activities = Activity.get_activities();
-    var present_activity_name = localStorage.getItem('present_activity_name');
-    _.map(activities, function (activity) {
-        if (activity.active_name == present_activity_name) {
-            activity.apply_people.unshift(message);
-        }
-    })
-    Activity.save_activities(activities);
+SMSSignUp.save_bm_message_to_sign_ups = function (message) {
+    var sign_up = Activity.get_sign_ups();
+    sign_up.push(message);
+    localStorage.setItem('sign_ups',JSON.stringify(sign_up));
 }
 
 SMSSignUp.refresh_apply = function (flag) {
@@ -56,7 +53,7 @@ SMSSignUp.sign_up_status_map = {
     },
     'beginning': function (message) {
         if (!SMSSignUp.judge_bm_repeat(message.phone)) {
-            SMSSignUp.save_bm_message_to_activities(message);
+            SMSSignUp.save_bm_message_to_sign_ups(message);
             SMSSignUp.refresh_apply('sign_up');
             console.log(message.name, '，恭喜你，报名成功！');
         } else {

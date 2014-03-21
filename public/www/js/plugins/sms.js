@@ -22,6 +22,7 @@ var native_accessor = {
     'BM': function (message_json) {
         SMSSignUp.check_bm_activity(SMSSignUp.reconstruct_bm_message(message_json));
     },
+
     'JJ': function (message_json) {
         if (!SMSBid.judge_jj_phone_is_from_bm_phone(message_json) || !SMSBid.judge_jj_content_is_price(message_json)) {
             return;

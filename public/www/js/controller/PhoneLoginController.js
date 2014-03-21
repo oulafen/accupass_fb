@@ -11,6 +11,7 @@ function PhoneLoginController($scope, $navigate,$http) {
                     $scope.error_show = 'true';
                 }
                 if(respond=='true'){
+                    localStorage.user = post_data.name;
                     $navigate.go('/activity/list');
                 }
             });

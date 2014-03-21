@@ -1,8 +1,7 @@
-function Activity(active_name, active_status, apply_people, biding) {
+function Activity(active_name) {
+    this.user = localStorage.user;
     this.active_name = active_name;
-    this.active_status = active_status;
-    this.apply_people = apply_people;
-    this.biding = biding;
+    this.active_status = 'null';
 }
 
 Activity.get_activities = function () {
@@ -53,6 +52,11 @@ Activity.get_present_activity = function () {
     var name = localStorage.getItem('present_activity_name');
     return _.find(activities, function (activity) {
         return activity.active_name == name;
-    }) || new Activity('','','','');
+    }) || new Activity('');
+}
+
+Activity.get_sign_ups = function(){
+    return JSON.parse(localStorage.getItem('sign_ups'))||[];
+
 }
 

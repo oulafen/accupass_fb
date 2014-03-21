@@ -1,15 +1,9 @@
 function SignUpListController($scope, $navigate) {
 
     $scope.status_map = {
-        'null': function () {
-            return 'unbegin'
-        },
-        'yellow': function () {
-            return 'beginning'
-        },
-        'lightgray': function () {
-            return 'end'
-        }
+        'null': 'unbegin' ,
+        'yellow':'beginning',
+        'lightgray': 'end'
     }
 
     $scope.button_status_init=function() {
@@ -25,15 +19,16 @@ function SignUpListController($scope, $navigate) {
             $scope.status = 'end';
             return;
         }
-        $scope.click_activity.active_name == $scope.present_activity.active_name ?
-            $scope.status = $scope.status_map[$scope.present_activity.active_status]()
-            : $scope.status = $scope.status_map[$scope.click_activity.active_status]();
+        $scope.status = $scope.click_activity.active_name == $scope.present_activity.active_name ?
+             $scope.status_map[$scope.present_activity.active_status]
+            : $scope.status_map[$scope.click_activity.active_status];
     }
 
     $scope.sign_up_unbegin = function () {
         $scope.status = 'beginning';
         $scope.present_activity = $scope.click_activity;
         $scope.present_activity.active_status = 'yellow';
+
         Activity.save_present_activity_name($scope.present_activity.active_name)
         SignUp.update_sign_up_activities($scope.present_activity)
         SignUp.save_sign_up_status('beginning');
@@ -48,8 +43,7 @@ function SignUpListController($scope, $navigate) {
     }
 
     $scope.get_peoples=function(){
-        $scope.present_activity = Activity.get_present_activity();
-        $scope.peoples = $scope.present_activity.apply_people;
+        $scope.peoples = Activity.get_sign_ups();
     }
 
     $scope.go_list = function () {

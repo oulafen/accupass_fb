@@ -17,13 +17,10 @@ function ActivityCreateController($scope, $navigate) {
     }
 
     function process_active_name (name) {
-        $scope.activity = new Activity('', null, [], []);
-
         if (Activity.judge_activity_name_is_repeat(name)) {
             $scope.name_repeat = true;
         }  else{
-            $scope.activity.active_name = name;
-            $scope.activities.unshift($scope.activity);
+            $scope.activities.unshift(new Activity(name));
 
             Activity.save_activities($scope.activities);
             Activity.save_present_activity_name(name);
