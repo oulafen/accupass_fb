@@ -4,7 +4,7 @@ myModule.config(function($routeProvider) {
         controller:PhoneLoginController
         }).when("/activity/create", {
             templateUrl: "www/pages/activity_create_page.html",
-            controller:ActivityListController
+            controller:ActivityCreateController
         }).when("/activity/list", {
             templateUrl: "www/pages/activity_list_page.html",
             controller:ActivityListController

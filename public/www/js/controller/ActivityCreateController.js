@@ -10,31 +10,30 @@ function ActivityCreateController($scope, $navigate) {
         $navigate.go('/activity/list');
     }
 
-    $scope.set_active_name = function () {
+    $scope.set_active_name = function(){
+        if (!$scope.input_name.length==0){
+            process_active_name($scope.input_name)
+        }
+    }
+
+    function process_active_name (name) {
         $scope.activity = new Activity('', null, [], []);
-        if (!$scope.button_be_gray && Activity.judge_activity_name_is_repeat($scope.input_name)) {
+
+        if (Activity.judge_activity_name_is_repeat(name)) {
             $scope.name_repeat = true;
-        } else {
-            $scope.activity.active_name = $scope.input_name;
+        }  else{
+            $scope.activity.active_name = name;
             $scope.activities.unshift($scope.activity);
+
             Activity.save_activities($scope.activities);
-            Activity.save_present_activity_name($scope.input_name);
-            Activity.save_click_activity_name($scope.input_name);
+            Activity.save_present_activity_name(name);
+            Activity.save_click_activity_name(name);
+
             $navigate.go('/sign_ups', 'slide', 'left');
         }
     }
 
-    $scope.create_button_status = function () {
-        $scope.button_be_gray = $scope.input_name.length == 0;
-    }
-
-    $scope.create_button_status_change = function () {
-        $scope.create_button_status();
-    }
-
     $scope.back_button_status();
-
-    $scope.create_button_status();
 
     SignUp.save_sign_up_status('unbegin');
 }

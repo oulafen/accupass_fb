@@ -8,15 +8,14 @@
   %form.wrapper-inner
     %fieldset.form-wrapper
       %br
-      %input.input-full.height-10-percent(ng-model="input_name" placeholder="活动名称" type="text"
-            ng-change="create_button_status_change()")
+      %input.input-full.height-10-percent(ng-model="input_name" placeholder="活动名称" type="text")
       %br
       .text-align-left(ng-show='name_repeat'  )
         %p.color-red
           您输入的活动名称已存在！
       %br
       %br
-      %a.btn.btn-primary.width-100-percent(ng-tap="set_active_name()" ng-disabled="button_be_gray")
+      %a.btn.btn-primary.width-100-percent(ng-disabled="!input_name" ng-tap="set_active_name()")
         %h4创建
 
 
