@@ -53,6 +53,6 @@ Activity.get_present_activity = function () {
     var name = localStorage.getItem('present_activity_name');
     return _.find(activities, function (activity) {
         return activity.active_name == name;
-    });
+    }) || new Activity('','','','');
 }
 

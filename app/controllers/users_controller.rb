@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_filter :verify_authenticity_token, :only => [:process_phone_login]
+
   def login
   end
 
