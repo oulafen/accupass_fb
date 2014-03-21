@@ -13,6 +13,10 @@ function ActivityListController($scope, $navigate) {
         $navigate.go('/sign_ups', 'slide', 'left');
     }
 
+    $scope.synchronize_data = function(){
+
+    }
+
     $scope.set_create_button_status();
 
     $scope.activities = Activity.get_activities();
