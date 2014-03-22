@@ -27,7 +27,7 @@ function BidListController($scope, $navigate) {
     }
 
     $scope.bids = function () {
-        $scope.bidings = Bid.get_bids();
+        $scope.bidings = Bid.get_bids_of_present_activity();
     }
 
     $scope.begin_button_status_init();

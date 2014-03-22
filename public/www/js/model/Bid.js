@@ -21,8 +21,16 @@ Bid.save_click_bid_name = function (bid_name) {
     localStorage.setItem('click_bid_name', bid_name);
 }
 
+Bid.get_bids_of_present_activity = function(){
+    var bids = Bid.get_bids();
+    return _.filter(bids,function(bid){
+        return bid.activity_name == localStorage.getItem('present_activity_name');
+    })||[];
+}
+
 Bid.get_bid_name = function () {
-    return ('竞价' + (Bid.get_bids().length + 1));
+    var bids = Bid.get_bids_of_present_activity();
+    return ('竞价' + (bids.length + 1));
 }
 
 Bid.get_bids = function(){
@@ -38,7 +46,7 @@ Bid.save_bid_name_to_bids = function (bid_name) {
 }
 
 Bid.get_present_bid = function () {
-    return _.find(Bid.get_bids(), function (bid) {
+    return _.filter(Bid.get_bids(), function (bid) {
         return bid.bid_name == localStorage.getItem('present_bid_name')
     }) || [];
 }
