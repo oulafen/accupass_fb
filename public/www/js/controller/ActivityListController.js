@@ -14,6 +14,14 @@ function ActivityListController($scope, $navigate,$http) {
     }
 
     $scope.synchronize_data = function(){
+        var activities = Activity.get_activities();
+        var sign_ups = JSON.parse(localStorage.getItem('sign_ups'));
+        var bids = JSON.parse(localStorage.getItem('bids'));
+        var bid_peoples = JSON.parse(localStorage.getItem('bid_peoples'));
+        console.log('activities-->',activities);
+        console.log('sign_ups-->',sign_ups);
+        console.log('bids-->',bids);
+        console.log('bid_peoples-->',bid_peoples);
 
     }
 

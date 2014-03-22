@@ -21,11 +21,11 @@ Bid.save_click_bid_name = function (bid_name) {
     localStorage.setItem('click_bid_name', bid_name);
 }
 
-Bid.get_bids_of_present_activity = function(){
+Bid.get_bids_of_present_activity = function () {
     var bids = Bid.get_bids();
-    return _.filter(bids,function(bid){
+    return _.filter(bids, function (bid) {
         return bid.activity_name == localStorage.getItem('present_activity_name');
-    })||[];
+    }) || [];
 }
 
 Bid.get_bid_name = function () {
@@ -33,7 +33,7 @@ Bid.get_bid_name = function () {
     return ('竞价' + (bids.length + 1));
 }
 
-Bid.get_bids = function(){
+Bid.get_bids = function () {
     var bids = JSON.parse(localStorage.getItem('bids'));
     return bids || [];
 }
@@ -42,7 +42,7 @@ Bid.save_bid_name_to_bids = function (bid_name) {
     var bid = new Bid(bid_name);
     var bids = Bid.get_bids();
     bids.push(bid);
-    localStorage.setItem('bids',JSON.stringify(bids));
+    localStorage.setItem('bids', JSON.stringify(bids));
 }
 
 Bid.get_present_bid = function () {
@@ -70,7 +70,7 @@ Bid.update_bids = function (present_bid) {
             bid.bid_status = present_bid.bid_status;
         }
     });
-    localStorage.setItem('bids',JSON.stringify(bids));
+    localStorage.setItem('bids', JSON.stringify(bids));
 }
 
 Bid.get_prices = function () {
@@ -87,7 +87,7 @@ Bid.get_prices = function () {
 }
 
 Bid.get_present_bid_peoples = function () {
-    var bid_peoples = _.filter(JSON.parse(localStorage.getItem('bid_peoples')),function(bid_people){
+    var bid_peoples = _.filter(JSON.parse(localStorage.getItem('bid_peoples')), function (bid_people) {
         return bid_people.activity_name == localStorage.getItem('present_activity_name')
             && bid_people.bid_name == localStorage.getItem('present_bid_name');
     });
@@ -119,4 +119,33 @@ Bid.get_bid_winner = function () {
     return _.find(Bid.get_bid_peoples_by_price(), function (present_bid_people) {
         return present_bid_people.price == win_price.price;
     });
+}
+
+Bid.save_bid_result = function () {
+    var bid_result = Bid.init_bid_result();
+    var bid_results = JSON.parse(localStorage.getItem('bid_results')) || [];
+    var is_find = _.find(bid_results, function (result) {
+        return result.activity_name == bid_result.activity_name
+            && result.bid_name == bid_result.bid_name;
+    });
+    if (is_find == undefined) {
+        bid_results.push(bid_result);
+        localStorage.setItem('bid_results', JSON.stringify(bid_results));
+    }
+}
+
+Bid.init_bid_result = function(){
+    var winner = Bid.get_bid_winner();
+    var bid_result = {};
+    bid_result.status = 'fail';
+    bid_result.user = localStorage.user;
+    bid_result.activity_name = localStorage.getItem('present_activity_name');
+    bid_result.bid_name = localStorage.getItem('present_bid_name');
+    if (winner != undefined) {
+        bid_result.name = winner.name;
+        bid_result.phone = winner.phone;
+        bid_result.price = winner.price;
+        bid_result.status = 'success';
+    }
+    return bid_result;
 }
