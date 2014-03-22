@@ -58,7 +58,6 @@ SMSBid.judge_jj_content_is_price = function (message_json) {
 }
 
 SMSBid.check_jj_activity = function (message) {
-    console.log('Bid.get_present_bid().bid_status==>',Bid.get_present_bid().bid_status)
     SMSBid.jj_status_map[Bid.get_present_bid().bid_status](message);
 }
 

@@ -46,9 +46,9 @@ Bid.save_bid_name_to_bids = function (bid_name) {
 }
 
 Bid.get_present_bid = function () {
-    return _.filter(Bid.get_bids(), function (bid) {
+    return _.find(Bid.get_bids_of_present_activity(), function (bid) {
         return bid.bid_name == localStorage.getItem('present_bid_name')
-    }) || [];
+    }) || {};
 }
 
 Bid.get_click_bid = function () {
@@ -58,8 +58,8 @@ Bid.get_click_bid = function () {
 }
 
 Bid.get_bid_people_by_phone = function (phone) {
-    return _.find(Bid.get_present_bid_peoples(), function (bid_people) {
-        return bid_people.phone == phone
+    return _.find(SignUp.get_present_sign_ups(), function (sign_up) {
+        return sign_up.phone == phone;
     }) || {};
 }
 
@@ -87,7 +87,10 @@ Bid.get_prices = function () {
 }
 
 Bid.get_present_bid_peoples = function () {
-    var bid_peoples = JSON.parse(localStorage.getItem('bid_peoples'));
+    var bid_peoples = _.filter(JSON.parse(localStorage.getItem('bid_peoples')),function(bid_people){
+        return bid_people.activity_name == localStorage.getItem('present_activity_name')
+            && bid_people.bid_name == localStorage.getItem('present_bid_name');
+    });
     return bid_peoples || [];
 }
 
