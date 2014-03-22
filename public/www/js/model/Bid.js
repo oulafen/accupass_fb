@@ -1,73 +1,68 @@
-function Bid(bid_name, bid_status, bid_people) {
+function Bid(bid_name, bid_status) {
+    this.activity_name = localStorage.getItem('present_activity_name');
+    this.user = localStorage.user;
     this.bid_name = bid_name;
-    this.bid_status = bid_status;
-    this.bid_people = bid_people;
+    this.bid_status = 'null';
 }
 
-Bid.get_present_biding_name = function () {
-    return localStorage.getItem('present_biding_name');
+Bid.get_present_bid_name = function () {
+    return localStorage.getItem('present_bid_name');
 }
 
-Bid.save_present_biding_name = function (bid_name) {
-    localStorage.setItem('present_biding_name', bid_name);
+Bid.save_present_bid_name = function (bid_name) {
+    localStorage.setItem('present_bid_name', bid_name);
 }
 
-Bid.get_click_biding_name = function () {
-    return localStorage.getItem('click_biding_name');
+Bid.get_click_bid_name = function () {
+    return localStorage.getItem('click_bid_name');
 }
 
-Bid.save_click_biding_name = function (bid_name) {
-    localStorage.setItem('click_biding_name', bid_name);
+Bid.save_click_bid_name = function (bid_name) {
+    localStorage.setItem('click_bid_name', bid_name);
 }
 
 Bid.get_bid_name = function () {
-    return ('竞价' + (Activity.get_present_activity().biding.length + 1));
+    return ('竞价' + (Bid.get_bids().length + 1));
 }
 
-Bid.save_bid_name_to_activities = function (bid_name) {
-    var activities = Activity.get_activities();
-    var biding = new Bid(bid_name, 'null', []);
-    _.map(activities, function (activity) {
-        if (activity.active_name == Activity.get_present_activity_name()) {
-            activity.biding.unshift(biding);
-        }
-    });
-    Activity.save_activities(activities);
+Bid.get_bids = function(){
+    var bids = JSON.parse(localStorage.getItem('bids'));
+    return bids || [];
 }
 
-Bid.get_present_biding = function () {
-    return _.find(Activity.get_present_activity().biding, function (biding) {
-        return biding.bid_name == localStorage.getItem('present_biding_name')
+Bid.save_bid_name_to_bids = function (bid_name) {
+    var bid = new Bid(bid_name);
+    var bids = Bid.get_bids();
+    bids.push(bid);
+    localStorage.setItem('bids',JSON.stringify(bids));
+}
+
+Bid.get_present_bid = function () {
+    return _.find(Bid.get_bids(), function (bid) {
+        return bid.bid_name == localStorage.getItem('present_bid_name')
     }) || [];
 }
 
-Bid.get_click_biding = function () {
-    return _.find(Activity.get_click_activity().biding, function (biding) {
-        return biding.bid_name == localStorage.getItem('click_biding_name')
+Bid.get_click_bid = function () {
+    return _.find(Bid.get_bids(), function (bid) {
+        return bid.bid_name == localStorage.getItem('click_bid_name')
     }) || [];
 }
 
 Bid.get_bid_people_by_phone = function (phone) {
-    return _.find(Activity.get_present_activity().apply_people, function (bid_people) {
+    return _.find(Bid.get_present_bid_peoples(), function (bid_people) {
         return bid_people.phone == phone
     }) || {};
 }
 
-Bid.update_biding_activities = function (present_biding) {
-    var activities = Activity.get_activities();
-    var present_activity = Activity.get_present_activity();
-    _.each(present_activity.biding, function (biding) {
-        if (biding.bid_name == present_biding.bid_name) {
-            biding.bid_status = present_biding.bid_status;
+Bid.update_bids = function (present_bid) {
+    var bids = Bid.get_bids();
+    _.each(bids, function (bid) {
+        if (bid.bid_name == present_bid.bid_name) {
+            bid.bid_status = present_bid.bid_status;
         }
     });
-    _.map(activities, function (activity) {
-        if (activity.active_name == present_activity.active_name) {
-            activity.biding = present_activity.biding;
-        }
-        return activity
-    });
-    Activity.save_activities(activities);
+    localStorage.setItem('bids',JSON.stringify(bids));
 }
 
 Bid.get_prices = function () {
@@ -84,7 +79,8 @@ Bid.get_prices = function () {
 }
 
 Bid.get_present_bid_peoples = function () {
-    return Bid.get_present_biding().bid_people;
+    var bid_peoples = JSON.parse(localStorage.getItem('bid_peoples'));
+    return bid_peoples || [];
 }
 
 Bid.judge_find_in_prices = function (prices, p) {

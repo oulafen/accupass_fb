@@ -6,15 +6,16 @@ function BidApplyController($scope, $navigate) {
     }
 
     $scope.bid_apply_begin_button_status_init = function () {
-        $scope.present_biding = Bid.get_present_biding();
-        $scope.click_biding = Bid.get_click_biding();
-        if ($scope.present_biding.bid_status == 'yellow' &&
-            $scope.click_biding.bid_name != $scope.present_biding.bid_name) {
+//        console.log('present_bid',Bid.get_present_bid())
+        $scope.present_bid = Bid.get_present_bid();
+        $scope.click_bid = Bid.get_click_bid();
+        if ($scope.present_bid.bid_status == 'yellow' &&
+            $scope.click_bid.bid_name != $scope.present_bid.bid_name) {
             $scope.status = 'begin_disabled';
         } else {
-            $scope.status = $scope.click_biding.bid_name == $scope.present_biding.bid_name ?
-                $scope.status_map[$scope.present_biding.bid_status] :
-                $scope.status_map[$scope.click_biding.bid_status];
+            $scope.status = $scope.click_bid.bid_name == $scope.present_bid.bid_name ?
+                $scope.status_map[$scope.present_bid.bid_status] :
+                $scope.status_map[$scope.click_bid.bid_status];
         }
     }
 
@@ -23,23 +24,27 @@ function BidApplyController($scope, $navigate) {
     }
 
     $scope.get_bid_peoples = function () {
-        $scope.present_biding = Bid.get_present_biding();
-        $scope.bid_peoples = $scope.present_biding.bid_people;
+        $scope.bid_peoples = Bid.get_present_bid_peoples();
+
+        console.log('$scope.bid_peoples==>>',$scope.bid_peoples)
     }
 
     $scope.bid_apply_unbegin = function () {
         $scope.present_activity = Activity.get_present_activity();
         $scope.status = 'beginning';
-        if ($scope.present_biding.bid_status != 'yellow') {
-            $scope.present_biding.bid_name = $scope.click_biding.bid_name;
+        if ($scope.present_bid.bid_status != 'yellow') {
+            $scope.present_bid.bid_name = $scope.click_bid.bid_name;
             $scope.sign_up_status = SignUp.get_sign_up_status();
             $scope.sign_up_status = 'end';
+
             SignUp.save_sign_up_status($scope.sign_up_status);
-            $scope.present_biding.bid_status = 'yellow';
+
+            $scope.present_bid.bid_status = 'yellow';
             $scope.present_activity.active_status = 'yellow';
-            Bid.update_biding_activities($scope.present_biding);
+
+            Bid.update_bids($scope.present_bid);
             SignUp.update_sign_up_activities($scope.present_activity);
-            Bid.save_present_biding_name($scope.present_biding.bid_name);
+            Bid.save_present_bid_name($scope.present_bid.bid_name);
         }
     }
 
@@ -49,15 +54,15 @@ function BidApplyController($scope, $navigate) {
             $scope.status = 'end';
             $scope.sign_up_status = 'unbegin';
             SignUp.save_sign_up_status($scope.sign_up_status);
-            $scope.present_biding.bid_status = 'lightgray';
+            $scope.present_bid.bid_status = 'lightgray';
             $scope.present_activity.active_status = 'lightgray';
-            Bid.update_biding_activities($scope.present_biding);
+            Bid.update_bids($scope.present_bid);
             SignUp.update_sign_up_activities($scope.present_activity);
             $navigate.go('/bid/result');
         }
     }
 
-    $scope.click_biding_name = Bid.get_click_biding_name();
+    $scope.click_biding_name = Bid.get_click_bid_name();
 
     $scope.bid_apply_begin_button_status_init();
 

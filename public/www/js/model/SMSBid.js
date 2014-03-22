@@ -1,4 +1,7 @@
 function SMSBid(name, phone, price) {
+    this.activity_name = localStorage.getItem('present_activity_name');
+    this.user = localStorage.user;
+    this.bid_name = localStorage.getItem('present_bid_name');
     this.name = name;
     this.phone = phone;
     this.price = price;
@@ -8,21 +11,10 @@ SMSBid.get_message_content = function (message_json) {
     return message_json.messages[0].message.substring(2).replace(/^\s+$/g, '');
 }
 
-SMSBid.save_jj_message_to_activities = function (message) {
-    var activities = Activity.get_activities();
-    var activity = Activity.get_present_activity();
-    _.each(activity.biding, function (biding) {
-        if (biding.bid_name == Bid.get_present_biding_name()) {
-            biding.bid_people.unshift(message);
-        }
-    });
-    _.map(activities, function (active) {
-        if (active.active_name == activity.active_name) {
-            active.biding = activity.biding;
-        }
-        return active
-    });
-    Activity.save_activities(activities);
+SMSBid.save_jj_message_to_bid_peoples = function (message) {
+    var bid_peoples = Bid.get_present_bid_peoples();
+    bid_peoples.push(message);
+    localStorage.setItem('bid_peoples',JSON.stringify(bid_peoples));
 }
 
 SMSBid.refresh_biding = function (flag) {
@@ -36,13 +28,13 @@ SMSBid.refresh_biding = function (flag) {
 }
 
 SMSBid.judge_jj_phone_is_from_bm_phone = function (message_json) {
-    return _.find(Activity.get_present_activity().apply_people, function (people) {
+    return _.find(Activity.get_sign_ups(), function (people) {
         return people.phone == message_json.messages[0].phone
     }) || false;
 }
 
 SMSBid.judge_jj_repeat = function (phone) {
-    if (Bid.get_present_bid_peoples() != null) {
+    if (Bid.get_present_bid_peoples() != []) {
         return _.find(Bid.get_present_bid_peoples(), function (bid_people) {
             return bid_people.phone == phone;
         });
@@ -66,7 +58,8 @@ SMSBid.judge_jj_content_is_price = function (message_json) {
 }
 
 SMSBid.check_jj_activity = function (message) {
-    SMSBid.jj_status_map[Bid.get_present_biding().bid_status](message);
+    console.log('Bid.get_present_bid().bid_status==>',Bid.get_present_bid().bid_status)
+    SMSBid.jj_status_map[Bid.get_present_bid().bid_status](message);
 }
 
 SMSBid.jj_status_map = {
@@ -75,7 +68,7 @@ SMSBid.jj_status_map = {
     },
     'yellow': function (message) {
         if (!SMSBid.judge_jj_repeat(message.phone)) {
-            SMSBid.save_jj_message_to_activities(message);
+            SMSBid.save_jj_message_to_bid_peoples(message);
             SMSBid.refresh_biding('bid');
             console.log('恭喜！您已竞价成功！');
         } else {
