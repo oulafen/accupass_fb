@@ -1,4 +1,4 @@
-function Bid(bid_name, bid_status) {
+function Bid(bid_name) {
     this.activity_name = localStorage.getItem('present_activity_name');
     this.user = localStorage.user;
     this.bid_name = bid_name;

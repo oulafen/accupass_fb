@@ -6,7 +6,6 @@ function BidApplyController($scope, $navigate) {
     }
 
     $scope.bid_apply_begin_button_status_init = function () {
-//        console.log('present_bid',Bid.get_present_bid())
         $scope.present_bid = Bid.get_present_bid();
         $scope.click_bid = Bid.get_click_bid();
         if ($scope.present_bid.bid_status == 'yellow' &&
@@ -25,8 +24,6 @@ function BidApplyController($scope, $navigate) {
 
     $scope.get_bid_peoples = function () {
         $scope.bid_peoples = Bid.get_present_bid_peoples();
-
-        console.log('$scope.bid_peoples==>>',$scope.bid_peoples)
     }
 
     $scope.bid_apply_unbegin = function () {

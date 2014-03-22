@@ -9,5 +9,5 @@ function BidPriceStatisticsController($scope, $navigate) {
 
     $scope.prices = Bid.get_prices();
 
-    $scope.click_biding_name = Bid.get_click_biding_name();
+    $scope.click_biding_name = Bid.get_click_bid_name();
 }

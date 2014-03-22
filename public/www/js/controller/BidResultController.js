@@ -28,5 +28,5 @@ function BidResultController($scope, $navigate, $timeout) {
 
     $scope.bid_peoples = Bid.get_bid_peoples_by_price();
 
-    $scope.click_biding_name = Bid.get_click_biding_name();
+    $scope.click_biding_name = Bid.get_click_bid_name();
 }
