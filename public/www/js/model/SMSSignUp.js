@@ -15,13 +15,13 @@ SMSSignUp.reconstruct_bm_message = function (message_json) {
 }
 
 SMSSignUp.judge_bm_repeat = function (phone) {
-    return _.find(Activity.get_sign_ups(), function (people) {
+    return _.find(SignUp.get_present_sign_ups(), function (people) {
         return people.phone == phone
     });
 }
 
 SMSSignUp.save_bm_message_to_sign_ups = function (message) {
-    var sign_up = Activity.get_sign_ups();
+    var sign_up = SignUp.get_present_sign_ups();
     sign_up.push(message);
     localStorage.setItem('sign_ups',JSON.stringify(sign_up));
 }

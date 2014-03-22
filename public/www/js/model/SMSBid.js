@@ -28,7 +28,7 @@ SMSBid.refresh_biding = function (flag) {
 }
 
 SMSBid.judge_jj_phone_is_from_bm_phone = function (message_json) {
-    return _.find(Activity.get_sign_ups(), function (people) {
+    return _.find(SignUp.get_present_sign_ups(), function (people) {
         return people.phone == message_json.messages[0].phone
     }) || false;
 }

@@ -1,6 +1,6 @@
-function SignUp(name,phone){
-    this.name=name;
-    this.phone=phone;
+function SignUp(){
+//    this.name=name;
+//    this.phone=phone;
 }
 
 SignUp.get_sign_up_status=function(){
@@ -19,4 +19,11 @@ SignUp.update_sign_up_activities=function(present_activity){
         }
     });
     localStorage.setItem('activities',JSON.stringify(activities));
+}
+
+SignUp.get_present_sign_ups = function(){
+    var sign_ups = JSON.parse(localStorage.getItem('sign_ups'))
+    return _.filter(sign_ups,function(sign_up){
+        return sign_up.activity_name == localStorage.getItem('present_activity_name')
+    }) ||[];
 }

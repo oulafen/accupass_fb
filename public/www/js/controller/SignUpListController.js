@@ -43,7 +43,7 @@ function SignUpListController($scope, $navigate) {
     }
 
     $scope.get_peoples=function(){
-        $scope.peoples = Activity.get_sign_ups();
+        $scope.peoples = SignUp.get_present_sign_ups();
     }
 
     $scope.go_list = function () {

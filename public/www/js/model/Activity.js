@@ -55,8 +55,7 @@ Activity.get_present_activity = function () {
     }) || new Activity('');
 }
 
-Activity.get_sign_ups = function(){
-    return JSON.parse(localStorage.getItem('sign_ups'))||[];
-
-}
+//Activity.get_sign_ups = function(){
+//    return JSON.parse(localStorage.getItem('sign_ups'))||[];
+//}
 
