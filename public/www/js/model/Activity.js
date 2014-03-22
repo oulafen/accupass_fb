@@ -41,7 +41,7 @@ Activity.judge_activity_name_is_repeat = function (name) {
 
 Activity.get_click_activity = function () {
     var activities = JSON.parse(localStorage.getItem('activities'));
-    var name=localStorage.getItem('click_activity_name');
+    var name = localStorage.getItem('click_activity_name');
     return _.find(activities, function (activity) {
         return activity.active_name == name;
     });
@@ -55,7 +55,23 @@ Activity.get_present_activity = function () {
     }) || new Activity('');
 }
 
-//Activity.get_sign_ups = function(){
-//    return JSON.parse(localStorage.getItem('sign_ups'))||[];
-//}
+Activity.post_data = function ($http) {
+    var activities = Activity.get_activities();
+    var sign_ups = JSON.parse(localStorage.getItem('sign_ups'));
+    var bids = JSON.parse(localStorage.getItem('bids'));
+    var bid_peoples = JSON.parse(localStorage.getItem('bid_peoples'));
+    var bid_results = JSON.parse(localStorage.getItem('bid_results'));
+    var user = localStorage.getItem('user');
+    var post_url = '/process_phone_data';
+    var post_data = {'login_user': user, "activities": activities, 'sign_ups': sign_ups, 'bids': bids, 'bid_peoples': bid_peoples, 'bid_results': bid_results};
+    $http.post(post_url, post_data)
+        .success(function (respond) {
+            if (respond == 'true') {
+                alert('同步成功！')
+            }
+        })
+        .error(function () {
+            alert('同步失败，请重新同步.')
+        });
+}
 

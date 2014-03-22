@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_filter :verify_authenticity_token, :only => [:process_phone_login]
+  skip_before_filter :verify_authenticity_token, :only => [:process_phone_login ]
+  skip_before_filter :verify_authenticity_token,:only=>[:process_phone_data]
 
   def login
   end
@@ -13,7 +14,6 @@ class UsersController < ApplicationController
   def add_user
     @user = User.new
   end
-
 
   def register
     @user = User.new
@@ -111,7 +111,6 @@ class UsersController < ApplicationController
   end
 
   def save_user
-    puts
     @user = User.new(params[:user])
     if @user.save
       redirect_to :add_user
@@ -153,6 +152,20 @@ class UsersController < ApplicationController
         format.json { render json: 'false' }
       end
     end
+  end
+
+  def process_phone_data
+    Activity.update_activities(params[:login_user],params[:activities])
+    Bid.update_bids(params[:login_user],params[:bids])
+    SignUp.update_sign_ups(params[:login_user],params[:sign_ups])
+    BidPeople.update_bid_people(params[:login_user],params[:bid_peoples])
+    BidResult.update_bid_results(params[:login_user],params[:bid_results])
+
+    respond_to do |format|
+      format.json { render json: 'true' }
+    end
+
+
   end
 
 end

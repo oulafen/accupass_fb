@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140322065043) do
+ActiveRecord::Schema.define(version: 20140322093519) do
 
   create_table "activities", force: true do |t|
-    t.string "name"
     t.string "user"
-    t.string "status"
+    t.string "active_status"
+    t.string "active_name"
   end
 
   create_table "bid_people", force: true do |t|

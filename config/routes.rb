@@ -21,6 +21,7 @@ AccupassFb::Application.routes.draw do
   post '/update_reset_password' => 'users#update_reset_password'
   post '/forgot_pw_1' => 'users#forgot_pw_1'
   post '/process_phone_login' => 'users#process_phone_login'
+  post '/process_phone_data' => 'users#process_phone_data'
 
   delete  '/del_user'=> 'users#del_user'
 

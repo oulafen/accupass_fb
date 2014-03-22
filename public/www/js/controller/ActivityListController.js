@@ -14,18 +14,7 @@ function ActivityListController($scope, $navigate,$http) {
     }
 
     $scope.synchronize_data = function(){
-        var activities = Activity.get_activities();
-        var sign_ups = JSON.parse(localStorage.getItem('sign_ups'));
-        var bids = JSON.parse(localStorage.getItem('bids'));
-        var bid_peoples = JSON.parse(localStorage.getItem('bid_peoples'));
-        var bid_results = JSON.parse(localStorage.getItem('bid_results'));
-
-        console.log('activities-->',activities);
-        console.log('sign_ups-->',sign_ups);
-        console.log('bids-->',bids);
-        console.log('bid_peoples-->',bid_peoples);
-        console.log('bid_results-->',bid_results);
-
+        Activity.post_data($http);
     }
 
     $scope.set_create_button_status();
