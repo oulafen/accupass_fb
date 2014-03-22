@@ -11,35 +11,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140321094619) do
+ActiveRecord::Schema.define(version: 20140322065043) do
 
   create_table "activities", force: true do |t|
-    t.string   "activity_id"
-    t.string   "name"
-    t.string   "user"
-    t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "name"
+    t.string "user"
+    t.string "status"
+  end
+
+  create_table "bid_people", force: true do |t|
+    t.string "activity_name"
+    t.string "bid_name"
+    t.string "user"
+    t.string "name"
+    t.string "phone"
+    t.string "price"
+  end
+
+  create_table "bid_results", force: true do |t|
+    t.string "activity_name"
+    t.string "bid_name"
+    t.string "user"
+    t.string "name"
+    t.string "phone"
+    t.string "price"
+    t.string "status"
+  end
+
+  create_table "bids", force: true do |t|
+    t.string "activity_name"
+    t.string "bid_name"
+    t.string "user"
+    t.string "bid_status"
   end
 
   create_table "sign_ups", force: true do |t|
-    t.string   "activity_id"
-    t.string   "user"
-    t.string   "name"
-    t.string   "phone"
-    t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "user"
+    t.string "name"
+    t.string "phone"
+    t.string "activity_name"
   end
 
   create_table "users", force: true do |t|
-    t.string   "name"
-    t.string   "password_digest"
-    t.string   "forgot_pw_question"
-    t.string   "forgot_pw_answer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "login_type",         default: "user"
+    t.string "name"
+    t.string "password_digest"
+    t.string "forgot_pw_question"
+    t.string "forgot_pw_answer"
+    t.string "login_type",         default: "user"
   end
 
 end
