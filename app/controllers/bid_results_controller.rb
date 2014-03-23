@@ -1,2 +1,0 @@
-class BidResultsController < ApplicationController
-end
