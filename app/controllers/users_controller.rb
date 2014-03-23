@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:process_phone_login ]
   skip_before_filter :verify_authenticity_token,:only=>[:process_phone_data]
+  require 'will_paginate/array'
 
   def login
   end
@@ -9,9 +10,13 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def welcome
+  def user_index
     @user = session[:name]
     @activities = reconstruct_activities(@user)
+    @pages = @activities.paginate :page => params[:page], :per_page => 10
+  end
+
+  def bid_list
 
   end
 
@@ -19,7 +24,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       session[:name] = params[:user][:name]
-      redirect_to :welcome
+      redirect_to :user_index
     else
       render :register
     end
@@ -46,7 +51,7 @@ class UsersController < ApplicationController
         redirect_to :manager_index
       else
         session[:name] = params[:user][:name]
-        redirect_to :welcome
+        redirect_to :user_index
       end
     else
       flash.now[:error] = '无效的用户名或密码'
