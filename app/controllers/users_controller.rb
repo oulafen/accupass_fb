@@ -13,18 +13,21 @@ class UsersController < ApplicationController
   def user_index
     @user = session[:name]
     @activities = reconstruct_activities(@user)
+    session[:present_activity_name]=nil
     @pages = @activities.paginate :page => params[:page], :per_page => 10
   end
 
   def bid_list
     @user = session[:name]
     @bids = reconstruct_bids(params[:activity_name],@user)
+    session[:present_activity_name] = params[:activity_name]
     @pages = @bids.paginate :page => params[:page], :per_page => 10
   end
 
   def sign_up_list
     @user = session[:name]
     @sign_ups = reconstruct_sign_ups(params[:activity_name],@user)
+    session[:present_activity_name] = params[:activity_name]
     @pages = @sign_ups.paginate :page => params[:page], :per_page => 10
 
   end
@@ -78,7 +81,6 @@ class UsersController < ApplicationController
       new_sign_ups.push(sign_up)
     end
     return new_sign_ups
-
   end
 
   def create_login_session

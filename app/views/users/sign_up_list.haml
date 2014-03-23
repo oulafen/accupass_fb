@@ -11,7 +11,7 @@
     .left.h4-1
       报名列表
     .right
-      =link_to '竞价列表',bid_list_path
+      =link_to '竞价列表',bid_list_path(:activity_name=>session[:present_activity_name])
     %br
   %table.table.table-striped
     %thead
