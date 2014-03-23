@@ -1,29 +1,32 @@
 AccupassFb::Application.routes.draw do
   root 'users#login'
 
+#users
   get "/register" =>'users#register'
   get "/welcome" =>'users#welcome'
-  get "/manager_index" =>'users#manager_index'
-  get "/add_user" =>'users#add_user'
   get '/create_login_session'=>'users#manager_index'
-  get '/change_password' => 'users#change_password'
-  get '/forgot_1' => 'users#forgot_1'
-  get '/forgot_2' => 'users#forgot_2'
-  get '/forgot_3' => 'users#forgot_3'
-
-
 
   post "/register" =>'users#create'
-  post "/add_user" =>'users#save_user'
   post '/create_login_session' => 'users#create_login_session'
-  post '/update_password' => 'users#update_password'
-  post '/judge_q_and_a' => 'users#judge_q_and_a'
-  post '/update_reset_password' => 'users#update_reset_password'
-  post '/forgot_pw_1' => 'users#forgot_pw_1'
-  post '/process_phone_login' => 'users#process_phone_login'
-  post '/process_phone_data' => 'users#process_phone_data'
 
-  delete  '/del_user'=> 'users#del_user'
+#admin
+
+  get "/manager_index" =>'admin#manager_index'
+  get "/add_user" =>'admin#add_user'
+  get '/change_password' => 'admin#change_password'
+  get '/forgot_1' => 'admin#forgot_1'
+  get '/forgot_2' => 'admin#forgot_2'
+  get '/forgot_3' => 'admin#forgot_3'
+
+  post "/add_user" =>'admin#save_user'
+  post '/update_password' => 'admin#update_password'
+  post '/judge_q_and_a' => 'admin#judge_q_and_a'
+  post '/update_reset_password' => 'admin#update_reset_password'
+  post '/forgot_pw_1' => 'admin#forgot_pw_1'
+  post '/process_phone_login' => 'admin#process_phone_login'
+  post '/process_phone_data' => 'admin#process_phone_data'
+
+  delete  '/del_user'=> 'admin#del_user'
 
 
   #resources :users, only: [:create]
