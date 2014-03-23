@@ -5,7 +5,11 @@ function Activity(active_name) {
 }
 
 Activity.get_activities = function () {
-    return JSON.parse(localStorage.getItem('activities')) || [];
+    var activities = JSON.parse(localStorage.getItem('activities'));
+    var present_activities = _.filter(activities, function (activity) {
+        return activity.user == localStorage.getItem('user');
+    });
+    return present_activities || [];
 }
 
 Activity.save_activities = function (activities) {
