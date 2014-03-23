@@ -17,11 +17,8 @@
           %td
             =link_to t[:name], bid_list_path(:activity_name => t[:name])
           %td
-            =link_to t[:bm_num]
+            =link_to t[:bm_num],sign_up_list_path(:activity_name => t[:name])
           %td
             =link_to t[:jj_num]
-          -#%td
-            =link_to "删除", del_user_path(:id => t.id), :method => :delete, :confirm=>"您确定要删除\"#{t.name}\"？"
-            =link_to "修改密码", change_password_path(:name=>t.name)
   .modal-footer
     = will_paginate(@pages)

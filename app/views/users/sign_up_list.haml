@@ -4,32 +4,30 @@
   .col-md-8(style=" height:30px; margin-left:4%")
     =link_to '首页',user_index_path
     %span
-      &nbsp/&nbsp竞价列表
+      &nbsp/&nbsp报名列表
 
 .box-2
   .modal-header(style="background:#F5F5F5")
     .left.h4-1
-      竞价列表
+      报名列表
     .right
-      =link_to '报名列表',sign_up_list_path
+      =link_to '竞价列表',bid_list_path
     %br
   %table.table.table-striped
     %thead
       %tr.bold
         %td 编号
-        %td 名称
-        %td 参与人数
+        %td  姓名
+        %td 手机号
     %tbody
       -@pages.each do |t|
         %tr
           %td
             =t[:id]
           %td
-            =link_to t[:name]
+            =t[:name]
           %td
-            =t[:jj_num]
-            ='/'
-            =t[:bm_num]
+            =t[:phone]
 
   .modal-footer
     = will_paginate(@pages)

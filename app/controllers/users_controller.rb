@@ -22,6 +22,13 @@ class UsersController < ApplicationController
     @pages = @bids.paginate :page => params[:page], :per_page => 10
   end
 
+  def sign_up_list
+    @user = session[:name]
+    @sign_ups = reconstruct_sign_ups(params[:activity_name],@user)
+    @pages = @sign_ups.paginate :page => params[:page], :per_page => 10
+
+  end
+
   def create
     @user = User.new(params[:user])
     if @user.save
@@ -53,11 +60,24 @@ class UsersController < ApplicationController
       bid={}
       bid[:id] = new_bids.length+1
       bid[:name] = b.bid_name
-      bid[:bm_num] = SignUp.where(:user=>user, :activity_name=>b.activity_name).length
-      bid[:jj_num] = BidPeople.where(:user=>user, :activity_name=>b.activity_name, :bid_name=>b.bid_name).length
+      bid[:bm_num] = SignUp.where(:user=>user, :activity_name=>act_name).length
+      bid[:jj_num] = BidPeople.where(:user=>user, :activity_name=>act_name, :bid_name=>b.bid_name).length
       new_bids.push(bid)
     end
     return new_bids
+  end
+
+  def reconstruct_sign_ups(act_name,user)
+    sign_ups=SignUp.where(:user=>user, :activity_name=>act_name )
+    new_sign_ups=[]
+    sign_ups.each do |s|
+      sign_up={}
+      sign_up[:id] = new_sign_ups.length+1
+      sign_up[:name] = s.name
+      sign_up[:phone] = s.phone
+      new_sign_ups.push(sign_up)
+    end
+    return new_sign_ups
 
   end
 
