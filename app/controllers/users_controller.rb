@@ -17,7 +17,9 @@ class UsersController < ApplicationController
   end
 
   def bid_list
-
+    @user = session[:name]
+    @bids = reconstruct_bids(params[:activity_name],@user)
+    @pages = @bids.paginate :page => params[:page], :per_page => 10
   end
 
   def create
@@ -42,6 +44,21 @@ class UsersController < ApplicationController
       new_acts.push(act)
     end
     return new_acts
+  end
+
+  def reconstruct_bids(act_name,user)
+    bids=Bid.where(:user=>user, :activity_name=>act_name )
+    new_bids=[]
+    bids.each do |b|
+      bid={}
+      bid[:id] = new_bids.length+1
+      bid[:name] = b.bid_name
+      bid[:bm_num] = SignUp.where(:user=>user, :activity_name=>b.activity_name).length
+      bid[:jj_num] = BidPeople.where(:user=>user, :activity_name=>b.activity_name, :bid_name=>b.bid_name).length
+      new_bids.push(bid)
+    end
+    return new_bids
+
   end
 
   def create_login_session

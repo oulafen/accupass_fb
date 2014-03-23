@@ -1,0 +1,32 @@
+=render '/users/user_header'
+
+.row(style="background:#eeeeee;margin-top:4.5% ")
+  .col-md-8(style=" height:30px; margin-left:4%")
+    =link_to '首页',user_index_path
+    %span
+      &nbsp/&nbsp竞价列表
+
+.box-2
+  .modal-header(style="background:#F5F5F5")
+    %span.h4-1 竞价列表
+    %span.h4-1(style="" ) 竞价列表
+  %table.table.table-striped
+    %thead
+      %tr.bold
+        %td 编号
+        %td 名称
+        %td 参与人数
+    %tbody
+      -@pages.each do |t|
+        %tr
+          %td
+            =t[:id]
+          %td
+            =link_to t[:name]
+          %td
+            =t[:jj_num]
+            ='/'
+            =t[:bm_num]
+
+  .modal-footer
+    = will_paginate(@pages)
