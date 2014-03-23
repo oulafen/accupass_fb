@@ -11,6 +11,8 @@ class UsersController < ApplicationController
 
   def welcome
     @user = session[:name]
+    @activities = reconstruct_activities(@user)
+
   end
 
   def create
@@ -21,6 +23,20 @@ class UsersController < ApplicationController
     else
       render :register
     end
+  end
+
+  def reconstruct_activities(user)
+    activities = Activity.where(:user=>user)
+    new_acts=[]
+    activities.each do |a|
+      act={}
+      act[:id] = new_acts.length+1
+      act[:name] = a.active_name
+      act[:bm_num] = SignUp.where(:user=>user, :activity_name=>a.active_name).length
+      act[:jj_num] = Bid.where(:user=>user, :activity_name=>a.active_name).length
+      new_acts.push(act)
+    end
+    return new_acts
   end
 
   def create_login_session
