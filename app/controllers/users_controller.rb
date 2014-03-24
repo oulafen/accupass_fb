@@ -32,6 +32,26 @@ class UsersController < ApplicationController
 
   end
 
+  def bid_detail
+    @user = session[:name]
+    session[:present_bid_name]=params[:present_bid_name]
+    @winner = BidResult.where(:user=>@user,:activity_name=>session[:present_activity_name],
+                              :bid_name=> params[:present_bid_name])
+
+    #@winner.each do |w|
+    puts '-------------------------'
+    puts session[:present_activity_name]
+    puts @user
+    puts params[:present_bid_name]
+
+
+    #puts w[:name]
+
+    puts '-----------------------------'
+    #end
+
+  end
+
   def create
     @user = User.new(params[:user])
     if @user.save
@@ -53,7 +73,7 @@ class UsersController < ApplicationController
       act[:jj_num] = Bid.where(:user=>user, :activity_name=>a.active_name).length
       new_acts.push(act)
     end
-    return new_acts
+    new_acts
   end
 
   def reconstruct_bids(act_name,user)
@@ -67,7 +87,7 @@ class UsersController < ApplicationController
       bid[:jj_num] = BidPeople.where(:user=>user, :activity_name=>act_name, :bid_name=>b.bid_name).length
       new_bids.push(bid)
     end
-    return new_bids
+    new_bids
   end
 
   def reconstruct_sign_ups(act_name,user)
@@ -80,7 +100,12 @@ class UsersController < ApplicationController
       sign_up[:phone] = s.phone
       new_sign_ups.push(sign_up)
     end
-    return new_sign_ups
+    new_sign_ups
+  end
+
+  def get_winner(activity_name,bid_name)
+    winner = BidResult
+
   end
 
   def create_login_session

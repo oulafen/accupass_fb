@@ -1,0 +1,48 @@
+=render '/users/user_header'
+
+.row(style="background:#eeeeee;margin-top:4.5% ")
+  .col-md-8(style=" height:30px; margin-left:4%")
+    =link_to '首页',user_index_path
+    %span
+      &nbsp/&nbsp
+      =link_to '竞价列表',bid_list_path(:activity_name=>session[:present_activity_name])
+    %span
+      &nbsp/&nbsp
+      =session[:present_bid_name]
+
+.box-2
+  .modal-header(style="background:#F5F5F5")
+    %br
+    .h4-1(style="text-align:center" )
+      -@winner.each do |w|
+        %p
+          获胜者：
+          =w.name
+        %p
+          出价：
+          =w.price
+          元
+        %p
+          手机号：
+          =w.phone
+    %br
+  -#%table.table.table-striped
+    %thead
+      %tr.bold
+        %td 编号
+        %td 名称
+        %td 参与人数
+    %tbody
+      -#-@pages.each do |t|
+        %tr
+          %td
+            =t[:id]
+          %td
+            =link_to t[:name]
+          %td
+            =t[:jj_num]
+            ='/'
+            =t[:bm_num]
+
+  .modal-footer
+    -#= will_paginate(@pages)
