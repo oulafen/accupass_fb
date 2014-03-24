@@ -34,13 +34,38 @@ class UsersController < ApplicationController
 
   def bid_detail
     @user = session[:name]
-    session[:present_bid_name]=params[:present_bid_name]
-    @winner = BidResult.where(:user=>@user,:activity_name=>session[:present_activity_name],
-                              :bid_name=> params[:present_bid_name])
-    bids = BidPeople.where(:user=>@user,:activity_name=>session[:present_activity_name],
-                            :bid_name=> params[:present_bid_name])
-    @pages = bids.paginate :page => params[:page], :per_page => 10
+    session[:present_bid_name] = params[:present_bid_name]
+    @winner = winner
+    @pages = present_bid_people.paginate :page => params[:page], :per_page => 10
 
+  end
+
+  def price_statistics
+    @user = session[:name]
+    @winner = winner
+    @pages = statistics.paginate :page => params[:page], :per_page => 10
+  end
+
+  def winner
+    BidResult.where(:user=>session[:name],:activity_name=>session[:present_activity_name],
+                             :bid_name=> session[:present_bid_name])
+  end
+
+  def present_bid_people
+    BidPeople.where(:user=>session[:name],:activity_name=>session[:present_activity_name],
+                           :bid_name=> session[:present_bid_name])
+  end
+
+  def statistics
+    bid_people = present_bid_people
+    bps=[]
+    bid_people.each do |b|
+      bp={}
+      bp[:price]=b[:price]
+      bp[:num]=bid_people.where(:price=>b.price).length
+      bps.push(bp)
+    end
+    bps
   end
 
   def create
