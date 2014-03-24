@@ -20,7 +20,7 @@
         %td 名称
         %td 参与人数
     %tbody
-      -@pages.each do |t|
+      -@pages_bids.each do |t|
         %tr
           %td
             =t[:id]
@@ -32,4 +32,4 @@
             =t[:bm_num]
 
   .modal-footer
-    = will_paginate(@pages)
+    = will_paginate(@pages_bids)

@@ -4,7 +4,6 @@ AccupassFb::Application.routes.draw do
 #users
   get "/register" =>'users#register'
   get "/user_index" =>'users#user_index'
-  get '/create_login_session'=>'users#manager_index'
   get '/bid_list' => 'users#bid_list'
   get '/sign_up_list' => 'users#sign_up_list'
   get '/bid_detail' => 'users#bid_detail'

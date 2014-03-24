@@ -4,7 +4,11 @@
 
 
 .box-2
-  =render '/users/bid_success'
+  -@winner.each do |w|
+    -if w.status=='success'
+      =render '/users/bid_success'
+    -if w.status=='failure'
+      =render '/users/bid_failure'
 
   %table.table.table-striped
     %thead
@@ -20,7 +24,7 @@
           人数
 
     %tbody
-      -@pages.each do |t|
+      -@pages_statistics.each do |t|
         %tr
           %td
             =t[:price]
@@ -28,4 +32,4 @@
             =t[:num]
 
   .modal-footer
-    = will_paginate(@pages)
+    = will_paginate(@pages_statistics)

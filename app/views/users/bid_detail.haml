@@ -3,7 +3,11 @@
 =render '/users/bid_head_row'
 
 .box-2
-  =render '/users/bid_success'
+  -@winner.each do |w|
+    -if w.status=='success'
+      =render '/users/bid_success'
+    -if w.status=='failure'
+      =render '/users/bid_failure'
 
   %table.table.table-striped
     %thead
@@ -22,7 +26,7 @@
         %td.wid-25
           手机号
     %tbody
-      -@pages.each do |t|
+      -@pages_bid_people.each do |t|
         %tr
           %td
             =t[:id]
@@ -34,4 +38,4 @@
             =t[:phone]
 
   .modal-footer
-    = will_paginate(@pages)
+    = will_paginate(@pages_bid_people)

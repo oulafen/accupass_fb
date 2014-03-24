@@ -14,21 +14,21 @@ class UsersController < ApplicationController
     @user = session[:name]
     @activities = reconstruct_activities(@user)
     session[:present_activity_name]=nil
-    @pages = @activities.paginate :page => params[:page], :per_page => 10
+    @pages_activities = pages(@activities)
   end
 
   def bid_list
     @user = session[:name]
     @bids = reconstruct_bids(params[:activity_name],@user)
     session[:present_activity_name] = params[:activity_name]
-    @pages = @bids.paginate :page => params[:page], :per_page => 10
+    @pages_bids = pages(@bids)
   end
 
   def sign_up_list
     @user = session[:name]
     @sign_ups = reconstruct_sign_ups(params[:activity_name],@user)
     session[:present_activity_name] = params[:activity_name]
-    @pages = @sign_ups.paginate :page => params[:page], :per_page => 10
+    @pages_sign_ups = pages(@sign_ups)
 
   end
 
@@ -36,14 +36,14 @@ class UsersController < ApplicationController
     @user = session[:name]
     session[:present_bid_name] = params[:present_bid_name]
     @winner = winner
-    @pages = present_bid_people.paginate :page => params[:page], :per_page => 10
+    @pages_bid_people = pages(present_bid_people)
 
   end
 
   def price_statistics
     @user = session[:name]
     @winner = winner
-    @pages = statistics.paginate :page => params[:page], :per_page => 10
+    @pages_statistics = pages(statistics)
   end
 
   def winner
@@ -66,6 +66,10 @@ class UsersController < ApplicationController
       bps.push(bp)
     end
     bps
+  end
+
+  def pages(pages)
+    pages.paginate :page => params[:page], :per_page => 10
   end
 
   def create
@@ -134,14 +138,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def manager_index
-    session[:success]=''
-    @user = User.where(:login_type => 'user')
-    @pages_user = @user.paginate :page => params[:page], :per_page => 10
-  end
-
   def logout
-    session[:name] = nil
+    reset_session
   end
 
   def process_phone_login
