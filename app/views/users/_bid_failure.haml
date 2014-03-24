@@ -1,5 +1,8 @@
 .modal-header(style="background:#F5F5F5")
   %br
   .h4-1(style="text-align:center" )
-    本次竞价无人胜出
+    -if(@active_status=='yellow')
+      活动正在进行中...
+    -else
+      本次竞价无人胜出
   %br
