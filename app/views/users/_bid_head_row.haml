@@ -1,0 +1,9 @@
+.row(style="background:#eeeeee;margin-top:4.5% ")
+  .col-md-8(style=" height:30px; margin-left:4%")
+    =link_to '首页',user_index_path
+    %span
+      &nbsp/&nbsp
+      =link_to '竞价列表',bid_list_path(:activity_name=>session[:present_activity_name])
+    %span
+      &nbsp/&nbsp
+      =session[:present_bid_name]
