@@ -2,6 +2,8 @@
 .box-1
   .modal-header(style="background:#F5F5F5")
     %span.h4-1 活动信息
+    .right
+      =button_to '同步展示',:controller=>'show', :action=>'show'
   %table.table.table-striped
     %thead
       %tr.bold

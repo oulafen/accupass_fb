@@ -1,0 +1,15 @@
+.modal-header(style="background:#F5F5F5")
+  %br
+  .h4-1(style="text-align:center" )
+    -#-@winner.each do |w|
+      %p
+        获胜者：
+        =w.name
+      %p
+        出价：
+        =w.price
+        元
+      %p
+        手机号：
+        =w.phone
+  %br

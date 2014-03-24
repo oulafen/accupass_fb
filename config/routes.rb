@@ -31,6 +31,8 @@ AccupassFb::Application.routes.draw do
 
   delete  '/del_user'=> 'admin#del_user'
 
+#show
+  post '/show'=>'show#show'
 
   #resources :users, only: [:create]
   # The priority is based upon order of creation: first created -> highest priority.
