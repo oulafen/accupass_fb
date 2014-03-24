@@ -37,18 +37,9 @@ class UsersController < ApplicationController
     session[:present_bid_name]=params[:present_bid_name]
     @winner = BidResult.where(:user=>@user,:activity_name=>session[:present_activity_name],
                               :bid_name=> params[:present_bid_name])
-
-    #@winner.each do |w|
-    puts '-------------------------'
-    puts session[:present_activity_name]
-    puts @user
-    puts params[:present_bid_name]
-
-
-    #puts w[:name]
-
-    puts '-----------------------------'
-    #end
+    bids = BidPeople.where(:user=>@user,:activity_name=>session[:present_activity_name],
+                            :bid_name=> params[:present_bid_name])
+    @pages = bids.paginate :page => params[:page], :per_page => 10
 
   end
 
@@ -101,11 +92,6 @@ class UsersController < ApplicationController
       new_sign_ups.push(sign_up)
     end
     new_sign_ups
-  end
-
-  def get_winner(activity_name,bid_name)
-    winner = BidResult
-
   end
 
   def create_login_session
