@@ -30,7 +30,7 @@
     %thead
       %tr
         %td.bolder-3
-          = link_to '出价列表'
+          = link_to '出价列表', bid_detail_path(:present_bid_name=>session[:present_bid_name])
         %td.bolder-4
           价格统计
       %tr.bold
