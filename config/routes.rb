@@ -11,6 +11,8 @@ AccupassFb::Application.routes.draw do
 
   post "/register" =>'users#create'
   post '/create_login_session' => 'users#create_login_session'
+  post '/process_phone_login' => 'users#process_phone_login'
+  post '/process_phone_data' => 'users#process_phone_data'
 
 #admin
 
@@ -26,8 +28,7 @@ AccupassFb::Application.routes.draw do
   post '/judge_q_and_a' => 'admin#judge_q_and_a'
   post '/update_reset_password' => 'admin#update_reset_password'
   post '/forgot_pw_1' => 'admin#forgot_pw_1'
-  post '/process_phone_login' => 'admin#process_phone_login'
-  post '/process_phone_data' => 'admin#process_phone_data'
+
 
   delete  '/del_user'=> 'admin#del_user'
 

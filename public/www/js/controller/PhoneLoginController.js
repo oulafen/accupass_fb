@@ -12,7 +12,16 @@ function PhoneLoginController($scope, $navigate,$http) {
                 }
                 if(respond=='true'){
                     localStorage.user = post_data.name;
-                    $navigate.go('/activity/list');
+                    var activities = JSON.parse(localStorage.getItem('activities'));
+                    var is_find = _.find(activities,function(activity){
+                        return activity.user==$scope.name;
+                    });
+                    if(is_find!=undefined){
+                        $navigate.go('/activity/list');
+                    }else{
+                        $navigate.go('/activity/create');
+                    }
+
                 }
             });
     }
