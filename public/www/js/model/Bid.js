@@ -165,27 +165,26 @@ Bid.get_bid_peoples_of_present_user = function () {
     });
 }
 
-Bid.post_show_winner = function ($http) {
-    var post_data = {bid_winner: Bid.get_bid_winner()};
-    var bid_result = _.filter(JSON.parse(localStorage.getItem('bid_results')), function (result) {
+Bid.get_bid_result_of_present_user = function(){
+    return _.filter(JSON.parse(localStorage.getItem('bid_results')), function (result) {
         return result.user == localStorage.user;
     });
+}
+
+Bid.post_show_winner = function ($http) {
+    var post_data = {bid_winner: Bid.get_bid_winner()};
     Bid.synchronous_show();
     $http.post('/show_winner_data', post_data);
-    $.ajax({
-        type:'post',
-        url: '/refresh_bid_result',
-        data:{'bid_result': bid_result, 'login_user': localStorage.user}
-    });
 }
 
 Bid.synchronous_show = function () {
     var post_data = {'login_user': localStorage.user, "activities": Activity.get_activities(),
         'sign_ups': SignUp.get_sign_ups_of_present_user(), 'bids': Bid.get_bids_of_present_user(),
-        'bid_peoples': Bid.get_bid_peoples_of_present_user()};
+        'bid_peoples': Bid.get_bid_peoples_of_present_user(),bid_result:Bid.get_bid_result_of_present_user()};
     $.ajax({
         type: "POST",
         url: "/process_show_data",
         data: post_data
     });
 }
+
