@@ -68,6 +68,7 @@ Activity.post_data = function ($http) {
     var user = localStorage.getItem('user');
     var post_url = '/process_phone_data';
     var post_data = {'login_user': user, "activities": activities, 'sign_ups': sign_ups, 'bids': bids, 'bid_peoples': bid_peoples, 'bid_results': bid_results};
+
     $http.post(post_url, post_data)
         .success(function (respond) {
             if (respond == 'true') {

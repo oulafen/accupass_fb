@@ -65,11 +65,14 @@ class UsersController < ApplicationController
   def statistics
     bid_people = present_bid_people
     bps=[]
-    bid_people.each do |b|
+    i=0
+    j=bid_people.length
+    while i<j
       bp={}
-      bp[:price]=b[:price]
-      bp[:num]=bid_people.where(:price=>b.price).length
+      bp[:price]=bid_people[i].price
+      bp[:num]=bid_people.where(:price=>bid_people[i].price).length
       bps.push(bp)
+      i += bp[:num]
     end
     bps
   end
@@ -160,6 +163,7 @@ class UsersController < ApplicationController
   end
 
   def process_phone_data
+
     Activity.update_activities(params[:login_user],params[:activities])
     Bid.update_bids(params[:login_user],params[:bids])
     SignUp.update_sign_ups(params[:login_user],params[:sign_ups])

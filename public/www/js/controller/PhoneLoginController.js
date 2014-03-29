@@ -14,14 +14,13 @@ function PhoneLoginController($scope, $navigate,$http) {
                     localStorage.user = post_data.name;
                     var activities = JSON.parse(localStorage.getItem('activities'));
                     var is_find = _.find(activities,function(activity){
-                        return activity.user==$scope.name;
+                        return activity.user==localStorage.user;
                     });
                     if(is_find!=undefined){
                         $navigate.go('/activity/list');
                     }else{
                         $navigate.go('/activity/create');
                     }
-
                 }
             });
     }

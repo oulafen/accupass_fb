@@ -3,11 +3,10 @@
 =render '/users/bid_head_row'
 
 .box-2
-  -@winner.each do |w|
-    -if w.status=='success'
-      =render '/users/bid_success'
-    -else
-      =render '/users/bid_failure'
+  -if @winner.at(0).status=='success'
+    =render '/users/bid_success'
+  -else
+    =render '/users/bid_failure'
 
   %table.table.table-striped
     %thead

@@ -12,17 +12,18 @@ function ActivityCreateController($scope, $navigate) {
 
     $scope.set_active_name = function(){
         if (!$scope.input_name.length==0){
-            process_active_name($scope.input_name)
+            process_active_name($scope.input_name);
         }
     }
 
     function process_active_name (name) {
+        var activities=JSON.parse(localStorage.getItem('activities'));
         if (Activity.judge_activity_name_is_repeat(name)) {
             $scope.name_repeat = true;
         }  else{
-            $scope.activities.unshift(new Activity(name));
+            activities.unshift(new Activity(name));
 
-            Activity.save_activities($scope.activities);
+            Activity.save_activities(activities);
             Activity.save_present_activity_name(name);
             Activity.save_click_activity_name(name);
 

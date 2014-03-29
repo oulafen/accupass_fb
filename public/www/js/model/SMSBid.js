@@ -12,7 +12,7 @@ SMSBid.get_message_content = function (message_json) {
 }
 
 SMSBid.save_jj_message_to_bid_peoples = function (message) {
-    var bid_peoples = Bid.get_present_bid_peoples();
+    var bid_peoples = JSON.parse(localStorage.getItem('bid_peoples'))||[];
     bid_peoples.push(message);
     localStorage.setItem('bid_peoples', JSON.stringify(bid_peoples));
 }

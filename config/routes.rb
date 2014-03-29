@@ -2,38 +2,42 @@ AccupassFb::Application.routes.draw do
   root 'users#login'
 
 #users
-  get "/register" =>'users#register'
-  get "/user_index" =>'users#user_index'
-  get '/bid_list' => 'users#bid_list'
-  get '/sign_up_list' => 'users#sign_up_list'
-  get '/bid_detail' => 'users#bid_detail'
-  get '/price_statistics' => 'users#price_statistics'
+  get "register" =>'users#register'
+  get "user_index" =>'users#user_index'
+  get 'bid_list' => 'users#bid_list'
+  get 'sign_up_list' => 'users#sign_up_list'
+  get 'bid_detail' => 'users#bid_detail'
+  get 'price_statistics' => 'users#price_statistics'
 
-  post "/register" =>'users#create'
-  post '/create_login_session' => 'users#create_login_session'
-  post '/process_phone_login' => 'users#process_phone_login'
-  post '/process_phone_data' => 'users#process_phone_data'
+  post "register" =>'users#create'
+  post 'create_login_session' => 'users#create_login_session'
+  post 'process_phone_login' => 'users#process_phone_login'
+  post 'process_phone_data' => 'users#process_phone_data'
 
 #admin
 
-  get "/manager_index" =>'admin#manager_index'
-  get "/add_user" =>'admin#add_user'
-  get '/change_password' => 'admin#change_password'
-  get '/forgot_1' => 'admin#forgot_1'
-  get '/forgot_2' => 'admin#forgot_2'
-  get '/forgot_3' => 'admin#forgot_3'
+  get "manager_index" =>'admin#manager_index'
+  get "add_user" =>'admin#add_user'
+  get 'change_password' => 'admin#change_password'
+  get 'forgot_1' => 'admin#forgot_1'
+  get 'forgot_2' => 'admin#forgot_2'
+  get 'forgot_3' => 'admin#forgot_3'
 
-  post "/add_user" =>'admin#save_user'
-  post '/update_password' => 'admin#update_password'
-  post '/judge_q_and_a' => 'admin#judge_q_and_a'
-  post '/update_reset_password' => 'admin#update_reset_password'
-  post '/forgot_pw_1' => 'admin#forgot_pw_1'
+  post "add_user" =>'admin#save_user'
+  post 'update_password' => 'admin#update_password'
+  post 'judge_q_and_a' => 'admin#judge_q_and_a'
+  post 'update_reset_password' => 'admin#update_reset_password'
+  post 'forgot_pw_1' => 'admin#forgot_pw_1'
 
 
-  delete  '/del_user'=> 'admin#del_user'
+  delete 'del_user'=> 'admin#del_user'
 
 #show
-  post '/show'=>'show#show'
+  get 'show'=>'show#show'
+
+  post 'process_show_data' => 'show#process_show_data'
+  post 'refresh_bid_result' =>'show#refresh_bid_result'
+  post 'show_winner_data' =>'show#show_winner_data'
 
   #resources :users, only: [:create]
   # The priority is based upon order of creation: first created -> highest priority.

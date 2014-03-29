@@ -1,9 +1,11 @@
 =render '/users/user_header'
 .box-1
   .modal-header(style="background:#F5F5F5")
-    %span.h4-1 活动信息
+    .left
+      %span.h4-1 活动信息
     .right
-      =button_to '同步展示',:controller=>'show', :action=>'show'
+      =link_to '同步展示',show_path,:class=>'btn'
+    %br
   %table.table.table-striped
     %thead
       %tr.bold

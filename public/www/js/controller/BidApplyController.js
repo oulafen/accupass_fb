@@ -1,4 +1,4 @@
-function BidApplyController($scope, $navigate) {
+function BidApplyController($scope, $navigate, $http) {
     $scope.status_map = {
         'null': 'unbegin',
         'yellow': 'beginning',
@@ -24,6 +24,7 @@ function BidApplyController($scope, $navigate) {
 
     $scope.get_bid_peoples = function () {
         $scope.bid_peoples = Bid.get_present_bid_peoples();
+        Bid.synchronous_show($http);
     }
 
     $scope.bid_apply_unbegin = function () {
@@ -50,9 +51,12 @@ function BidApplyController($scope, $navigate) {
         if (confirm('确定要结束本次竞价吗？')) {
             $scope.status = 'end';
             $scope.sign_up_status = 'unbegin';
+
             SignUp.save_sign_up_status($scope.sign_up_status);
+
             $scope.present_bid.bid_status = 'lightgray';
             $scope.present_activity.active_status = 'lightgray';
+
             Bid.update_bids($scope.present_bid);
             SignUp.update_sign_up_activities($scope.present_activity);
             $navigate.go('/bid/result');
@@ -64,5 +68,6 @@ function BidApplyController($scope, $navigate) {
     $scope.bid_apply_begin_button_status_init();
 
     $scope.get_bid_peoples();
+
 }
 

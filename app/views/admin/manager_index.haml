@@ -20,4 +20,4 @@
             =link_to "删除", del_user_path(:id => t.id), :method => :delete, :confirm=>"您确定要删除\"#{t.name}\"？"
             =link_to "修改密码", change_password_path(:name=>t.name)
   .modal-footer
-    = will_paginate(@pages_user)
+    = will_paginate @pages_user,:previous_label=>'<<',:next_label=>'>>'

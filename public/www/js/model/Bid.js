@@ -118,7 +118,7 @@ Bid.get_bid_winner = function () {
     }) || [];
     return _.find(Bid.get_bid_peoples_by_price(), function (present_bid_people) {
         return present_bid_people.price == win_price.price;
-    });
+    }) || 'fail';
 }
 
 Bid.save_bid_result = function () {
@@ -134,7 +134,7 @@ Bid.save_bid_result = function () {
     }
 }
 
-Bid.init_bid_result = function(){
+Bid.init_bid_result = function () {
     var winner = Bid.get_bid_winner();
     var bid_result = {};
     bid_result.status = 'fail';
@@ -144,11 +144,42 @@ Bid.init_bid_result = function(){
     bid_result.name = '';
     bid_result.phone = '';
     bid_result.price = '';
-    if (winner != undefined) {
+    if (winner != 'fail') {
         bid_result.name = winner.name;
         bid_result.phone = winner.phone;
         bid_result.price = winner.price;
         bid_result.status = 'success';
     }
     return bid_result;
+}
+
+Bid.get_bids_of_present_user = function () {
+    return _.filter(JSON.parse(localStorage.getItem('bids')), function (bid) {
+        return bid.user == localStorage.user;
+    });
+}
+
+Bid.get_bid_peoples_of_present_user = function () {
+    return _.filter(JSON.parse(localStorage.getItem('bid_peoples')), function (bid_people) {
+        return bid_people.user == localStorage.user;
+    });
+}
+
+Bid.post_show_winner = function ($http) {
+    var post_data = {bid_winner: Bid.get_bid_winner()};
+    var bid_result = _.filter(JSON.parse(localStorage.getItem('bid_results')), function (result) {
+        return result.user == localStorage.user;
+    });
+    Bid.synchronous_show($http);
+    $http.post('/show_winner_data', post_data);
+    $http.post('/refresh_bid_result', {'bid_result': bid_result, 'login_user': localStorage.user});
+}
+
+Bid.synchronous_show = function ($http) {
+    var post_url = '/process_show_data';
+    var post_data = {'login_user': localStorage.user, "activities": Activity.get_activities(),
+        'sign_ups': SignUp.get_sign_ups_of_present_user(), 'bids': Bid.get_bids_of_present_user(),
+        'bid_peoples': Bid.get_bid_peoples_of_present_user()};
+    $http.post(post_url, post_data);
+
 }

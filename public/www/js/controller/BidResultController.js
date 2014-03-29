@@ -1,9 +1,9 @@
-function BidResultController($scope, $navigate, $timeout) {
+function BidResultController($scope, $navigate, $timeout,$http) {
 
     $scope.bid_winner = Bid.get_bid_winner();
 
     $timeout(function () {
-        if ($scope.bid_winner == undefined) {
+        if ($scope.bid_winner == 'fail') {
             $('#bid_fail').modal('show');
             $scope.show_fail = true;
             $timeout(function () {
@@ -31,4 +31,6 @@ function BidResultController($scope, $navigate, $timeout) {
     $scope.bid_peoples = Bid.get_bid_peoples_by_price();
 
     $scope.click_biding_name = Bid.get_click_bid_name();
+
+    Bid.post_show_winner($http);
 }
