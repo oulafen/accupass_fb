@@ -2,8 +2,7 @@ class AdminController < ApplicationController
 
   def manager_index
     session[:success]=''
-    @user = User.where(:login_type => 'user')
-    @pages_user = @user.paginate :page => params[:page], :per_page => 10
+    @pages_user = reconstruct_user_list.paginate :page => params[:page], :per_page => 10
   end
 
   def add_user
@@ -40,6 +39,19 @@ class AdminController < ApplicationController
       flash.now[:notice]='忘记密码答案错误'
       render :forgot_2
     end
+  end
+
+  def reconstruct_user_list
+    temp_users = User.where(:login_type => 'user')
+    users=[]
+    temp_users.each do |user|
+      u={}
+      u[:id]=user.id
+      u[:index]=users.length+1
+      u[:name]=user.name
+      users.push(u)
+    end
+    users
   end
 
   def update_reset_password
