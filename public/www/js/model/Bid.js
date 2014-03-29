@@ -170,16 +170,22 @@ Bid.post_show_winner = function ($http) {
     var bid_result = _.filter(JSON.parse(localStorage.getItem('bid_results')), function (result) {
         return result.user == localStorage.user;
     });
-    Bid.synchronous_show($http);
+    Bid.synchronous_show();
     $http.post('/show_winner_data', post_data);
-    $http.post('/refresh_bid_result', {'bid_result': bid_result, 'login_user': localStorage.user});
+    $.ajax({
+        type:'post',
+        url: '/refresh_bid_result',
+        data:{'bid_result': bid_result, 'login_user': localStorage.user}
+    });
 }
 
-Bid.synchronous_show = function ($http) {
-    var post_url = '/process_show_data';
+Bid.synchronous_show = function () {
     var post_data = {'login_user': localStorage.user, "activities": Activity.get_activities(),
         'sign_ups': SignUp.get_sign_ups_of_present_user(), 'bids': Bid.get_bids_of_present_user(),
         'bid_peoples': Bid.get_bid_peoples_of_present_user()};
-    $http.post(post_url, post_data);
-
+    $.ajax({
+        type: "POST",
+        url: "/process_show_data",
+        data: post_data
+    });
 }

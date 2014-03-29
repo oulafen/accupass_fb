@@ -3,9 +3,8 @@ class Activity < ActiveRecord::Base
 
   def self.update_activities(user,activities)
     Activity.delete_all(:user => user)
-
-    activities.each do |activity|
-      Activity.create(activity)
+    activities.each do |(key,value)|
+      Activity.create(value)
     end
   end
 end

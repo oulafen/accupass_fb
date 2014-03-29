@@ -3,7 +3,7 @@ class SignUp < ActiveRecord::Base
 
   def self.update_sign_ups(user,sign_ups)
     SignUp.delete_all(:user => user)
-    sign_ups.each do |sign_up|
+    sign_ups.each do |(key,sign_up)|
       SignUp.create(sign_up)
     end
   end

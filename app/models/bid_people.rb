@@ -3,8 +3,8 @@ class BidPeople < ActiveRecord::Base
 
   def self.update_bid_people(user,bid_people)
     BidPeople.delete_all(:user => user)
-    bid_people.each do |bid_person|
-      BidPeople.create(bid_person)
+    bid_people.each do |(key,value)|
+      BidPeople.create(value)
     end
   end
 end

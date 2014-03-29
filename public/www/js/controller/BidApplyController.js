@@ -24,7 +24,7 @@ function BidApplyController($scope, $navigate, $http) {
 
     $scope.get_bid_peoples = function () {
         $scope.bid_peoples = Bid.get_present_bid_peoples();
-        Bid.synchronous_show($http);
+//        Bid.synchronous_show($http);
     }
 
     $scope.bid_apply_unbegin = function () {

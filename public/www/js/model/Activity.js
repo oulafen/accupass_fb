@@ -59,24 +59,23 @@ Activity.get_present_activity = function () {
     }) || new Activity('');
 }
 
-Activity.post_data = function ($http) {
+Activity.post_data = function () {
     var activities = Activity.get_activities();
     var sign_ups = JSON.parse(localStorage.getItem('sign_ups'));
     var bids = JSON.parse(localStorage.getItem('bids'));
     var bid_peoples = JSON.parse(localStorage.getItem('bid_peoples'));
     var bid_results = JSON.parse(localStorage.getItem('bid_results'));
-    var user = localStorage.getItem('user');
-    var post_url = '/process_phone_data';
-    var post_data = {'login_user': user, "activities": activities, 'sign_ups': sign_ups, 'bids': bids, 'bid_peoples': bid_peoples, 'bid_results': bid_results};
-
-    $http.post(post_url, post_data)
-        .success(function (respond) {
-            if (respond == 'true') {
-                alert('同步成功！')
-            }
-        })
-        .error(function () {
-            alert('同步失败，请重新同步.')
-        });
+    $.ajax({
+        type: 'post',
+        url: '/process_phone_data',
+        data: {'login_user': localStorage.user, "activities": activities, 'sign_ups': sign_ups, 'bids': bids,
+            'bid_peoples': bid_peoples, 'bid_results': bid_results},
+        success: function( ){
+            alert('同步成功！')
+        },
+        error: function( ){
+            alert('同步失败，请重新上传。。。')
+        }
+    });
 }
 

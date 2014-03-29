@@ -14,7 +14,7 @@ function ActivityListController($scope, $navigate,$http) {
     }
 
     $scope.synchronize_data = function(){
-        Activity.post_data($http);
+        Activity.post_data();
     }
 
     $scope.set_create_button_status();

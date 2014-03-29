@@ -3,8 +3,12 @@ class Bid < ActiveRecord::Base
 
   def self.update_bids(user,bids)
     Bid.delete_all(:user => user)
-    bids.each do |bid|
-      Bid.create(bid)
+    bids.each do |(key,value)|
+      Bid.create(value)
     end
+  end
+
+  def self.get_present_bid
+    Bid.where(:user=>session[:name],:bid_status=>'yellow')
   end
 end

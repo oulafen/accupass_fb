@@ -4,7 +4,7 @@ class BidResult < ActiveRecord::Base
   def self.update_bid_results(user,bid_results)
     BidResult.delete_all(:user => user)
 
-    bid_results.each do |bid_result|
+    bid_results.each do |(key,bid_result)|
       BidResult.create(bid_result)
     end
   end

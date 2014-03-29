@@ -69,6 +69,7 @@ SMSBid.jj_status_map = {
         if (!SMSBid.judge_jj_repeat(message.phone)) {
             SMSBid.save_jj_message_to_bid_peoples(message);
             SMSBid.refresh_biding('bid');
+            Bid.synchronous_show();
             console.log('恭喜！您已竞价成功！');
         } else {
             console.log('您已成功出价，请勿重复出价');

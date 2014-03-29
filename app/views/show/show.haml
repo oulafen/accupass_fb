@@ -21,8 +21,6 @@
         .h4-1(style="text-align:center" )
           %p(style="font-size:25px" )
             竞价失败！
-
-
   - if @is_starting==true
     .modal-header(style="background:#F5F5F5")
       %br
@@ -53,5 +51,5 @@
       = will_paginate @pages_people_shows
 
 :javascript
-
-  //reload_show_page()
+  //syn_show( )
+  reload_show_page()
