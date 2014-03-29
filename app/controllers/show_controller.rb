@@ -17,8 +17,6 @@ class ShowController < ApplicationController
     else
       @winner = Show.find(:all)
     end
-
-
   end
 
   def process_show_data

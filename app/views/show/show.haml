@@ -1,16 +1,7 @@
 .box-1
-  .modal-header(style="background:#F5F5F5")
-    %br
-    - if @is_starting==true
-      .h4-1(style="text-align:center" )
-        %p(style="font-size:30px" )
-          =@present_bid[0][:activity_name]
-        %p(style="font-size:20px" )
-          参与人数
-          =@jj_num
-          ='/'
-          =@bm_num
-    - if @is_starting==false
+  - if @is_starting==false
+    .modal-header(style="background:#F5F5F5")
+      %br
       -if !@winner.empty?
         .h4-1(style="text-align:center")
           %p(style="font-size:30px" )
@@ -33,6 +24,17 @@
 
 
   - if @is_starting==true
+    .modal-header(style="background:#F5F5F5")
+      %br
+      - if @is_starting==true
+        .h4-1(style="text-align:center" )
+          %p(style="font-size:30px" )
+            =@present_bid[0][:activity_name]
+          %p(style="font-size:20px" )
+            参与人数
+            =@jj_num
+            ='/'
+            =@bm_num
     %table.table.table-striped
       %thead
         %tr.bold
