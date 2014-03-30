@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     @activities = reconstruct_activities(@user)
     session[:present_activity_name]=nil
     @pages_activities = pages(@activities)
+    Show.delete_all
   end
 
   def bid_list

@@ -1,13 +1,13 @@
 =render 'admin/admin_header'
 
-.row(style="background:#eeeeee;margin-top:4.5% ")
-  .col-md-8(style=" height:30px; margin-left:4%")
+.row.row-style
+  .col-md-8.position-2
     =link_to '首页',manager_index_path
     %span
       &nbsp/&nbsp添加用户
 
-.modal.fade.in(style="background:#F5F5F5;margin-top:5%")
-  .index-login.padding
+.modal.fade.in.modal-style
+  .index-login.position-3
     %br
     %br
     =form_for :user ,:url=>'add_user' do |f|

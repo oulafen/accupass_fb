@@ -15,7 +15,6 @@ AccupassFb::Application.routes.draw do
   post 'process_phone_data' => 'users#process_phone_data'
 
 #admin
-
   get "manager_index" =>'admin#manager_index'
   get "add_user" =>'admin#add_user'
   get 'change_password' => 'admin#change_password'
@@ -29,14 +28,12 @@ AccupassFb::Application.routes.draw do
   post 'update_reset_password' => 'admin#update_reset_password'
   post 'forgot_pw_1' => 'admin#forgot_pw_1'
 
-
   delete 'del_user'=> 'admin#del_user'
 
 #show
   get 'show'=>'show#show'
 
   post 'process_show_data' => 'show#process_show_data'
-  post 'refresh_bid_result' =>'show#refresh_bid_result'
   post 'show_winner_data' =>'show#show_winner_data'
 
   #resources :users, only: [:create]

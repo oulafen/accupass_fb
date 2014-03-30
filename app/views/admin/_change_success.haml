@@ -1,11 +1,11 @@
 .modal.hide#change_success
   .modal-body
-    %button.close(type="button" id='close') &times
+    %button.close#close(type="button") &times
     .text-center
       %span(style='font-size:30px')
         修改成功！
   .modal-footer
-    =link_to '确定', :manager_index, :method=>'get', :class=> 'btn btn-default'
+    =link_to '确定', manager_index_path, :class=> 'btn btn-default'
 
 
 :javascript

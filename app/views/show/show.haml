@@ -1,10 +1,10 @@
 %div#show_area
   .box-1#show
-    .modal-header(style="background:#F5F5F5")
+    .modal-header(style="background:#F5F5F5 ")
       %br
       - if @is_starting==false
         -if !@winner.empty?
-          .h4-1(style="text-align:center")
+          .h4-2
             %p(style="font-size:30px" )
               =@winner[0][:activity_name]
             %p(style="font-size:25px" )
@@ -19,11 +19,11 @@
               电话：
               =@winner[0][:phone]
         -else
-          .h4-1(style="text-align:center" )
+          .h4-2
             %p(style="font-size:25px" )
-              竞价失败！
+              无人胜出！
       -else
-        .h4-1(style="text-align:center" )
+        .h4-2
           %p(style="font-size:30px" )
             =@present_bid[0][:activity_name]
           %p(style="font-size:20px" )
