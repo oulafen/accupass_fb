@@ -186,13 +186,12 @@ Bid.post_show_winner = function ($http) {
 }
 
 Bid.synchronous_show = function () {
-    var post_data = {'login_user': localStorage.user, "activities": Activity.get_activities(),
-        'sign_ups': SignUp.get_sign_ups_of_present_user(), 'bids': Bid.get_bids_of_present_user(),
-        'bid_peoples': Bid.get_bid_peoples_of_present_user(),'bid_results':Bid.get_bid_result_of_present_user()};
     $.ajax({
         type: "POST",
         url: "/process_phone_data",
-        data: post_data
+        data: {'login_user': localStorage.user, "activities": Activity.get_activities(),
+            'sign_ups': SignUp.get_sign_ups_of_present_user(), 'bids': Bid.get_bids_of_present_user(),
+            'bid_peoples': Bid.get_bid_peoples_of_present_user(),'bid_results':Bid.get_bid_result_of_present_user()}
     });
 }
 

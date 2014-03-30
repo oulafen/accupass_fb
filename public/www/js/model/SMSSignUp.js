@@ -21,7 +21,7 @@ SMSSignUp.judge_bm_repeat = function (phone) {
 }
 
 SMSSignUp.save_bm_message_to_sign_ups = function (message) {
-    var sign_up = SignUp.get_present_sign_ups();
+    var sign_up = JSON.parse(localStorage.getItem('sign_ups'))||[];
     sign_up.push(message);
     localStorage.setItem('sign_ups',JSON.stringify(sign_up));
 }

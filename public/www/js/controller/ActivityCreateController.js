@@ -17,7 +17,7 @@ function ActivityCreateController($scope, $navigate) {
     }
 
     function process_active_name (name) {
-        var activities=JSON.parse(localStorage.getItem('activities'));
+        var activities=JSON.parse(localStorage.getItem('activities'))||[];
         if (Activity.judge_activity_name_is_repeat(name)) {
             $scope.name_repeat = true;
         }  else{
