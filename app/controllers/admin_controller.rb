@@ -109,7 +109,13 @@ class AdminController < ApplicationController
   end
 
   def del_user
-    User.find_by_id(params[:id]).delete
+    User.find_by_name(params[:name]).delete
+    BidResult.find_by_name(params[:name]).delete
+    Bid.find_by_name(params[:name]).delete
+    BidPeople.find_by_name(params[:name]).delete
+    SignUp.find_by_name(params[:name]).delete
+    Activity.find_by_name(params[:name]).delete
+
     redirect_to :manager_index
   end
 
