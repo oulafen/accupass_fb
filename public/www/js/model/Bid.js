@@ -24,7 +24,7 @@ Bid.save_click_bid_name = function (bid_name) {
 Bid.get_bids_of_present_activity = function () {
     var bids = Bid.get_bids();
     return _.filter(bids, function (bid) {
-        return bid.activity_name == localStorage.getItem('present_activity_name');
+        return bid.activity_name == localStorage.getItem('present_activity_name')&&bid.user==localStorage.user;
     }) || [];
 }
 
@@ -88,8 +88,9 @@ Bid.get_prices = function () {
 
 Bid.get_present_bid_peoples = function () {
     var bid_peoples = _.filter(JSON.parse(localStorage.getItem('bid_peoples')), function (bid_people) {
-        return bid_people.activity_name == localStorage.getItem('present_activity_name')
-            && bid_people.bid_name == localStorage.getItem('present_bid_name');
+        return bid_people.activity_name == localStorage.present_activity_name
+            && bid_people.bid_name == localStorage.present_bid_name
+            && bid_people.user == localStorage.user;
     });
     return bid_peoples || [];
 }

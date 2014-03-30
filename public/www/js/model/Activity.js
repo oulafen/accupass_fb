@@ -62,7 +62,7 @@ Activity.get_present_activity = function () {
 Activity.synchronous_show = function () {
     $.ajax({
         type: "POST",
-        url: "/process_show_data",
+        url: "/process_phone_data",
         data: {'login_user': localStorage.user, "activities": Activity.get_activities(),
             'sign_ups': SignUp.get_sign_ups_of_present_user(), 'bids': Bid.get_bids_of_present_user(),
             'bid_peoples': Bid.get_bid_peoples_of_present_user(),'bid_results':Bid.get_bid_result_of_present_user()},
