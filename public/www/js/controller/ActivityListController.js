@@ -1,4 +1,4 @@
-function ActivityListController($scope, $navigate,$http) {
+function ActivityListController($scope, $navigate) {
     $scope.set_create_button_status = function () {
         $scope.present_activity = Activity.get_present_activity();
         $scope.button_status = $scope.present_activity.active_status == 'yellow' ?  'disable' : 'able';

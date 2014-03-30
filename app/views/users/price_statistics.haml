@@ -2,10 +2,16 @@
 =render '/users/bid_head_row'
 
 .box-2
-  -if @winner[0].status=='success'
-    =render '/users/bid_success'
+  -if @bid_status=='yellow'
+    .modal-header(style="background:#F5F5F5")
+      %br
+      .h4-2
+        活动正在进行...
   -else
-    =render '/users/bid_failure'
+    -if @winner[0].status=='success'
+      =render '/users/bid_success'
+    -else
+      =render '/users/bid_failure'
 
   %table.table.table-striped
     %thead
