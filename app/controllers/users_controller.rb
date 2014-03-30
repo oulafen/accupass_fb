@@ -35,6 +35,7 @@ class UsersController < ApplicationController
   def bid_detail
     @user = session[:name]
     @winner = winner(params[:present_bid_name])
+    session[:present_bid_name]=params[:present_bid_name]
     @active_status = active_status
     @pages_bid_people = pages(present_bid_people)
   end

@@ -1,6 +1,6 @@
 %div#show_area
   .box-1#show
-    .modal-header#head(style="background:#F5F5F5")
+    .modal-header(style="background:#F5F5F5")
       %br
       - if @is_starting==false
         -if !@winner.empty?
@@ -50,4 +50,4 @@
         = will_paginate @pages_people_shows
 
 :javascript
-  setTimeout("$('#show_area').load('show/#show')",2)
+  setTimeout("$('#show_area').load('show/#show')",100)
