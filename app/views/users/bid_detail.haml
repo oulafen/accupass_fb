@@ -1,9 +1,8 @@
 =render '/users/user_header'
-
 =render '/users/bid_head_row'
 
 .box-2
-  -if @winner.at(0).status=='success'
+  -if @winner[0].status=='success'
     =render '/users/bid_success'
   -else
     =render '/users/bid_failure'
@@ -14,7 +13,7 @@
         %td.bolder-1(colspan=2)
           出价列表
         %td.bolder-2(colspan=2)
-          = link_to '价格统计', price_statistics_path
+          = link_to '价格统计', price_statistics_path(:present_bid_name=>session[:present_bid_name])
       %tr.bold
         %td.wid-25
           编号

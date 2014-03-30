@@ -166,9 +166,16 @@ Bid.get_bid_peoples_of_present_user = function () {
 }
 
 Bid.get_bid_result_of_present_user = function(){
-    return _.filter(JSON.parse(localStorage.getItem('bid_results')), function (result) {
+    var bid_result= _.filter(JSON.parse(localStorage.getItem('bid_results')), function (result) {
         return result.user == localStorage.user;
     });
+    if (bid_result[0]==null){
+        return [Bid.init_bid_result()];
+    }else{
+        return bid_result;
+    }
+
+
 }
 
 Bid.post_show_winner = function ($http) {
@@ -180,10 +187,10 @@ Bid.post_show_winner = function ($http) {
 Bid.synchronous_show = function () {
     var post_data = {'login_user': localStorage.user, "activities": Activity.get_activities(),
         'sign_ups': SignUp.get_sign_ups_of_present_user(), 'bids': Bid.get_bids_of_present_user(),
-        'bid_peoples': Bid.get_bid_peoples_of_present_user(),bid_result:Bid.get_bid_result_of_present_user()};
+        'bid_peoples': Bid.get_bid_peoples_of_present_user(),'bid_results':Bid.get_bid_result_of_present_user()};
     $.ajax({
         type: "POST",
-        url: "/process_show_data",
+        url: "/process_phone_data",
         data: post_data
     });
 }

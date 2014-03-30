@@ -34,11 +34,9 @@ class UsersController < ApplicationController
 
   def bid_detail
     @user = session[:name]
-    session[:present_bid_name] = params[:present_bid_name]
-    @winner = winner
+    @winner = winner(params[:present_bid_name])
     @active_status = active_status
     @pages_bid_people = pages(present_bid_people)
-
   end
 
   def active_status
@@ -47,14 +45,14 @@ class UsersController < ApplicationController
 
   def price_statistics
     @user = session[:name]
-    @winner = winner
+    @winner = winner(params[:present_bid_name])
     @active_status = active_status
     @pages_statistics = pages(statistics)
   end
 
-  def winner
+  def winner(present_bid_name)
     BidResult.where(:user=>session[:name],:activity_name=>session[:present_activity_name],
-                             :bid_name=> session[:present_bid_name])
+                             :bid_name=> present_bid_name)
   end
 
   def present_bid_people
@@ -173,8 +171,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.json { render json: 'true' }
     end
-
-
   end
 
 end

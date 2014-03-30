@@ -68,7 +68,7 @@ class AdminController < ApplicationController
            user.password = params[:user][:password]
            user.password_confirmation = params[:user][:password_confirmation]
            user.save
-           redirect_to :welcome
+           redirect_to :user_index
          end
     end
   end

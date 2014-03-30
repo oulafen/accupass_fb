@@ -19,24 +19,6 @@ class ShowController < ApplicationController
     end
   end
 
-  def process_show_data
-
-    Activity.update_activities(params[:login_user],params[:activities])
-    Bid.update_bids(params[:login_user],params[:bids])
-    SignUp.update_sign_ups(params[:login_user],params[:sign_ups])
-    BidPeople.update_bid_people(params[:login_user],params[:bid_peoples])
-    respond_to do |format|
-      format.json { render json: 'true' }
-    end
-  end
-
-  def refresh_bid_result
-    BidResult.update_bid_results(params[:login_user],params[:bid_result])
-    respond_to do |format|
-      format.json { render json: 'true' }
-    end
-  end
-
   def show_winner_data
     if params[:bid_winner]=='fail'
       Show.delete_all

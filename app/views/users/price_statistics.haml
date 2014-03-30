@@ -1,12 +1,10 @@
 =render '/users/user_header'
-
 =render '/users/bid_head_row'
 
-
 .box-2
-  -if @winner.at(0).status=='success'
+  -if @winner[0].status=='success'
     =render '/users/bid_success'
-  -if @winner.at(0).status=='failure'
+  -else
     =render '/users/bid_failure'
 
   %table.table.table-striped
