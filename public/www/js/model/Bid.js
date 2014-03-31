@@ -24,7 +24,7 @@ Bid.save_click_bid_name = function (bid_name) {
 Bid.get_bids_of_present_activity = function () {
     var bids = Bid.get_bids();
     return _.filter(bids, function (bid) {
-        return bid.activity_name == localStorage.getItem('present_activity_name')&&bid.user==localStorage.user;
+        return bid.activity_name == localStorage.getItem('present_activity_name') && bid.user == localStorage.user;
     }) || [];
 }
 
@@ -66,7 +66,9 @@ Bid.get_bid_people_by_phone = function (phone) {
 Bid.update_bids = function (present_bid) {
     var bids = Bid.get_bids();
     _.each(bids, function (bid) {
-        if (bid.bid_name == present_bid.bid_name) {
+        if (bid.bid_name == present_bid.bid_name
+            && bid.activity_name == localStorage.present_activity_name
+            && bid.user == localStorage.user) {
             bid.bid_status = present_bid.bid_status;
         }
     });
@@ -166,13 +168,13 @@ Bid.get_bid_peoples_of_present_user = function () {
     });
 }
 
-Bid.get_bid_result_of_present_user = function(){
-    var bid_result= _.filter(JSON.parse(localStorage.getItem('bid_results')), function (result) {
+Bid.get_bid_result_of_present_user = function () {
+    var bid_result = _.filter(JSON.parse(localStorage.getItem('bid_results')), function (result) {
         return result.user == localStorage.user;
     });
-    if (bid_result[0]==null){
+    if (bid_result[0] == null) {
         return [Bid.init_bid_result()];
-    }else{
+    } else {
         return bid_result;
     }
 
@@ -191,7 +193,7 @@ Bid.synchronous_show = function () {
         url: "/process_phone_data",
         data: {'login_user': localStorage.user, "activities": Activity.get_activities(),
             'sign_ups': SignUp.get_sign_ups_of_present_user(), 'bids': Bid.get_bids_of_present_user(),
-            'bid_peoples': Bid.get_bid_peoples_of_present_user(),'bid_results':Bid.get_bid_result_of_present_user()}
+            'bid_peoples': Bid.get_bid_peoples_of_present_user(), 'bid_results': Bid.get_bid_result_of_present_user()}
     });
 }
 
