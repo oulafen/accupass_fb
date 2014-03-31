@@ -23,6 +23,7 @@ SignUp.get_present_sign_ups = function () {
     var sign_ups = JSON.parse(localStorage.getItem('sign_ups'));
     return _.filter(sign_ups, function (sign_up) {
         return sign_up.activity_name == localStorage.getItem('present_activity_name')
+            && sign_up.user == localStorage.user
     }) || [];
 }
 
