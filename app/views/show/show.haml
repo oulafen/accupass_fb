@@ -1,53 +1,54 @@
-%div#show_area
-  .box-1#show
-    .modal-header(style="background:#F5F5F5 ")
-      %br
-      - if @is_starting==false
-        -if !@winner.empty?
-          .h4-2
-            %p(style="font-size:30px" )
-              =@winner[0][:activity_name]
-            %p(style="font-size:25px" )
-              比赛结果
-            %p(style="font-size:20px" )
-              获胜者：
-              =@winner[0][:name]
-            %p(style="font-size:20px" )
-              出价：
-              =@winner[0][:price]
-            %p(style="font-size:20px")
-              电话：
-              =@winner[0][:phone]
+-if @activity_is_going
+  %div#show_area
+    .box-1#show
+      .modal-header(style="background:#F5F5F5 ")
+        %br
+        - if @is_starting==false
+          -if !@winner.empty?
+            .h4-2
+              %p(style="font-size:30px" )
+                =@winner[0][:activity_name]
+              %p(style="font-size:25px" )
+                比赛结果
+              %p(style="font-size:20px" )
+                获胜者：
+                =@winner[0][:name]
+              %p(style="font-size:20px" )
+                出价：
+                =@winner[0][:price]
+              %p(style="font-size:20px")
+                电话：
+                =@winner[0][:phone]
+          -else
+            .h4-2
+              %p(style="font-size:25px" )
+                无人胜出！
         -else
           .h4-2
-            %p(style="font-size:25px" )
-              无人胜出！
-      -else
-        .h4-2
-          %p(style="font-size:30px" )
-            =@present_bid[0][:activity_name]
-          %p(style="font-size:20px" )
-            参与人数
-            =@jj_num
-            ='/'
-            =@bm_num
-    - if @is_starting==true
-      %table.table.table-striped
-        %thead
-          %tr.bold
-            %td
-              姓名
-            %td
-              电话
-        %tbody
-          -@pages_people_shows.each do |t|
-            %tr
+            %p(style="font-size:30px" )
+              =@present_bid[0][:activity_name]
+            %p(style="font-size:20px" )
+              参与人数
+              =@jj_num
+              ='/'
+              =@bm_num
+      - if @is_starting==true
+        %table.table.table-striped
+          %thead
+            %tr.bold
               %td
-                =t[:name]
+                姓名
               %td
-                =t[:phone]
-      .modal-footer
-        = will_paginate @pages_people_shows
+                电话
+          %tbody
+            -@pages_people_shows.each do |t|
+              %tr
+                %td
+                  =t[:name]
+                %td
+                  =t[:phone]
+        .modal-footer
+          = will_paginate @pages_people_shows
 
 :javascript
   setTimeout("$('#show_area').load('show/#show')",20)

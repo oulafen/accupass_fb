@@ -4,6 +4,7 @@ class ShowController < ApplicationController
   require 'will_paginate/array'
 
   def show
+    @activity_is_going = !Activity.where(:user=>session[:name],:active_status=>'yellow')[0].nil?
     @present_bid = Bid.where(:user=>session[:name],:bid_status=>'yellow')
     @is_starting=!@present_bid[0].nil?
     if @is_starting
