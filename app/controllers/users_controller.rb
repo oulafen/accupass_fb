@@ -3,16 +3,11 @@ class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token,:only=>[:process_phone_data]
   require 'will_paginate/array'
 
-  def login
-  end
-
   def register
     @user = User.new
   end
 
   def user_index
-    puts '-------------------------------'
-    puts session[:name]
     if session[:name].nil?
       redirect_to :root
     else
@@ -156,13 +151,8 @@ class UsersController < ApplicationController
   end
 
   def logout
-    #session[]
-    puts '================000000000000000000000========================'
-    puts session[:name]
     reset_session
     redirect_to :root
-    puts '========================================'
-    puts session[:name]
   end
 
   def process_phone_login
