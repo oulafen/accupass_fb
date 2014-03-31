@@ -11,11 +11,17 @@ class UsersController < ApplicationController
   end
 
   def user_index
-    @user = session[:name]
-    @activities = reconstruct_activities(@user)
-    session[:present_activity_name]=nil
-    @pages_activities = pages(@activities)
-    Show.delete_all
+    puts '-------------------------------'
+    puts session[:name]
+    if session[:name].nil?
+      redirect_to :root
+    else
+      @user = session[:name]
+      @activities = reconstruct_activities(@user)
+      session[:present_activity_name]=nil
+      @pages_activities = pages(@activities)
+      Show.delete_all
+    end
   end
 
   def bid_list
@@ -137,6 +143,7 @@ class UsersController < ApplicationController
     login_person = User.find_by_name(params[:user][:name])
     if login_person && login_person.authenticate(params[:user][:password])
       if login_person[:login_type]=='admin'
+        session[:name] = params[:user][:name]
         redirect_to :manager_index
       else
         session[:name] = params[:user][:name]
@@ -149,7 +156,13 @@ class UsersController < ApplicationController
   end
 
   def logout
+    #session[]
+    puts '================000000000000000000000========================'
+    puts session[:name]
     reset_session
+    redirect_to :root
+    puts '========================================'
+    puts session[:name]
   end
 
   def process_phone_login

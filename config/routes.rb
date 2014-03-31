@@ -8,6 +8,7 @@ AccupassFb::Application.routes.draw do
   get 'sign_up_list' => 'users#sign_up_list'
   get 'bid_detail' => 'users#bid_detail'
   get 'price_statistics' => 'users#price_statistics'
+  get 'logout' => 'users#logout'
 
   post "register" =>'users#create'
   post 'create_login_session' => 'users#create_login_session'

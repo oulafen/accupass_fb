@@ -1,8 +1,12 @@
 class AdminController < ApplicationController
 
   def manager_index
-    session[:success]=''
-    @pages_user = reconstruct_user_list.paginate :page => params[:page], :per_page => 10
+    if session[:name]==nil?
+      redirect_to :root
+    else
+      session[:success]=''
+      @pages_user = reconstruct_user_list.paginate :page => params[:page], :per_page => 10
+    end
   end
 
   def add_user
