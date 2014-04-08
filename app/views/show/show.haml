@@ -3,27 +3,26 @@
     .box-1#show
       .modal-header(style="background:#F5F5F5 ")
         %br
-        - if @is_starting==false
-          -if !@winner.empty?
-            .h4-2
-              %p(style="font-size:30px" )
-                =@winner[0][:activity_name]
-              %p(style="font-size:25px" )
-                比赛结果
-              %p(style="font-size:20px" )
-                获胜者：
-                =@winner[0][:name]
-              %p(style="font-size:20px" )
-                出价：
-                =@winner[0][:price]
-              %p(style="font-size:20px")
-                电话：
-                =@winner[0][:phone]
-          -else
-            .h4-2
-              %p(style="font-size:25px" )
-                无人胜出！
-        -else
+        - if @bid_is_starting==false && !@winner.empty?
+          .h4-2
+            %p(style="font-size:30px" )
+              =@winner[0][:activity_name]
+            %p(style="font-size:25px" )
+              比赛结果
+            %p(style="font-size:20px" )
+              获胜者：
+              =@winner[0][:name]
+            %p(style="font-size:20px" )
+              出价：
+              =@winner[0][:price]
+            %p(style="font-size:20px")
+              电话：
+              =@winner[0][:phone]
+        -if @bid_is_starting==false && @winner.empty?
+          .h4-2
+            %p(style="font-size:25px" )
+              无人胜出！
+        -if @bid_is_starting==true
           .h4-2
             %p(style="font-size:30px" )
               =@present_bid[0][:activity_name]
@@ -32,7 +31,7 @@
               =@jj_num
               ='/'
               =@bm_num
-      - if @is_starting==true
+      - if @bid_is_starting==true
         %table.table.table-striped
           %thead
             %tr.bold

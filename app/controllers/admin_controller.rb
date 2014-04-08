@@ -1,9 +1,10 @@
 class AdminController < ApplicationController
 
   def manager_index
-    if session[:name]==nil?
+    if !session[:name]
       redirect_to :root
-    else
+    end
+    if session[:name]
       session[:success]=''
       @pages_user = reconstruct_user_list.paginate :page => params[:page], :per_page => 10
     end
@@ -19,14 +20,16 @@ class AdminController < ApplicationController
   end
 
   def forgot_pw_1
+    user_is_find = User.find_by_name(params[:user][:name])
+
     if params[:user][:name]==''
       flash.now[:notice] = '账号不能为空'
     end
-    user = User.find_by_name(params[:user][:name])
-    if user
+    if user_is_find
       session[:forgot_pw_user_name] = params[:user][:name]
       redirect_to :forgot_2, :method=>'post'
-    else
+    end
+    if !user_is_find
       render :forgot_1
     end
   end
@@ -39,7 +42,8 @@ class AdminController < ApplicationController
     @user=User.find_by_name(session[:forgot_pw_user_name])
     if @user.forgot_pw_answer==params[:user][:forgot_pw_answer]
       redirect_to :forgot_3
-    else
+    end
+    if @user.forgot_pw_answer!=params[:user][:forgot_pw_answer]
       flash.now[:notice]='忘记密码答案错误'
       render :forgot_2
     end
@@ -61,20 +65,21 @@ class AdminController < ApplicationController
   def update_reset_password
     judge_pw = judge_change_password(params[:user])
     user = User.find_by_name(session[:forgot_pw_user_name])
-    if judge_pw == 'unequal'
+    if judge_pw == 'unequal' && judge_pw != 'empty'
       flash.now[:notice] = '两次密码输入不一致'
       render :forgot_3
-    else if judge_pw == 'empty'
+    end
+    if judge_pw != 'unequal' && judge_pw == 'empty'
            flash.now[:notice] = '输入不能为空'
            render :forgot_3
-         else
-           session[:name] = user.name
-           user.password = params[:user][:password]
-           user.password_confirmation = params[:user][:password_confirmation]
-           user.save
-           redirect_to :user_index
-         end
     end
+    if judge_pw != 'unequal' && judge_pw != 'empty'
+       session[:name] = user.name
+       user.password = params[:user][:password]
+       user.password_confirmation = params[:user][:password_confirmation]
+       user.save
+       redirect_to :user_index
+     end
   end
 
   def update_password
@@ -86,7 +91,8 @@ class AdminController < ApplicationController
       if @user.save
         session[:success]='true'
       end
-    else
+    end
+    if judge_pw!='authorized'
       flash.now[:notice] = judge_pw=='empty' ? '输入不能为空' : '两次密码输入不一致'
     end
     render :change_password
@@ -95,11 +101,12 @@ class AdminController < ApplicationController
   def judge_change_password(user)
     if user[:password]=='' || user[:password_confirmation]==''
       return 'empty'
-    else if user[:password]!=user[:password_confirmation]
-           return 'unequal'
-         else
-           return 'authorized'
-         end
+    end
+    if user[:password]!='' && user[:password_confirmation]!='' && user[:password]!=user[:password_confirmation]
+      return 'unequal'
+    end
+    if user[:password]!='' && user[:password_confirmation]!='' && user[:password]!=user[:password_confirmation]
+      return 'authorized'
     end
   end
 

@@ -136,15 +136,15 @@ class UsersController < ApplicationController
 
   def create_login_session
     login_person = User.find_by_name(params[:user][:name])
-    if login_person && login_person.authenticate(params[:user][:password])
-      if login_person[:login_type]=='admin'
-        session[:name] = params[:user][:name]
-        redirect_to :manager_index
-      else
-        session[:name] = params[:user][:name]
-        redirect_to :user_index
-      end
-    else
+    if login_person && login_person.authenticate(params[:user][:password]) && login_person[:login_type]=='admin'
+      session[:name] = params[:user][:name]
+      redirect_to :manager_index
+    end
+    if login_person && login_person.authenticate(params[:user][:password]) && login_person[:login_type]=='user'
+      session[:name] = params[:user][:name]
+      redirect_to :user_index
+    end
+    if !login_person || !login_person.authenticate(params[:user][:password])
       flash.now[:error] = '无效的用户名或密码'
       render :login
     end
@@ -160,7 +160,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if user && user.authenticate( params[:password])
         format.json { render json: 'true' }
-      else
+      end
+      if !user || !user.authenticate( params[:password])
         format.json { render json: 'false' }
       end
     end
