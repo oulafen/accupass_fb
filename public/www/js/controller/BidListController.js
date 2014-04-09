@@ -15,7 +15,8 @@ function BidListController($scope, $navigate) {
 
     $scope.bid_unbegin = function () {
         $scope.bid_name = Bid.get_bid_name();
-        Bid.save_bid_name_to_bids($scope.bid_name);
+        var bid = new Bid($scope.bid_name);
+        bid.save();
         Bid.save_click_bid_name($scope.bid_name);
         Bid.save_present_bid_name($scope.bid_name);
         $scope.status = 'begin_disabled';

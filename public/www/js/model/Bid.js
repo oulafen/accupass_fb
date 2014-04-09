@@ -5,6 +5,12 @@ function Bid(bid_name) {
     this.bid_status = 'null';
 }
 
+Bid.prototype.save = function () {
+    var bids = Bid.get_bids();
+    bids.push(this);
+    localStorage.setItem('bids', JSON.stringify(bids));
+}
+
 Bid.get_present_bid_name = function () {
     return localStorage.getItem('present_bid_name');
 }
@@ -38,12 +44,12 @@ Bid.get_bids = function () {
     return bids || [];
 }
 
-Bid.save_bid_name_to_bids = function (bid_name) {
-    var bid = new Bid(bid_name);
-    var bids = Bid.get_bids();
-    bids.push(bid);
-    localStorage.setItem('bids', JSON.stringify(bids));
-}
+//Bid.save_bid_name_to_bids = function (bid_name) {
+//    var bid = new Bid(bid_name);
+//    var bids = Bid.get_bids();
+//    bids.push(bid);
+//    localStorage.setItem('bids', JSON.stringify(bids));
+//}
 
 Bid.get_present_bid = function () {
     return _.find(Bid.get_bids_of_present_activity(), function (bid) {
