@@ -4,16 +4,18 @@ function Activity(active_name) {
     this.active_status = 'null';
 }
 
+Activity.prototype.save=function(){
+    var activities = JSON.parse(localStorage.getItem('activities'));
+    activities.unshift(this);
+    localStorage.setItem('activities', JSON.stringify(activities));
+}
+
 Activity.get_activities = function () {
     var activities = JSON.parse(localStorage.getItem('activities'));
     var present_activities = _.filter(activities, function (activity) {
         return activity.user == localStorage.getItem('user');
     });
     return present_activities || [];
-}
-
-Activity.save_activities = function (activities) {
-    localStorage.setItem('activities', JSON.stringify(activities));
 }
 
 Activity.get_present_activity_name = function () {

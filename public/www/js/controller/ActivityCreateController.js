@@ -21,9 +21,8 @@ function ActivityCreateController($scope, $navigate) {
         if (Activity.judge_activity_name_is_repeat(name)) {
             $scope.name_repeat = true;
         }  else{
-            activities.unshift(new Activity(name));
-
-            Activity.save_activities(activities);
+            var activity = new Activity(name);
+            activity.save();
             Activity.save_present_activity_name(name);
             Activity.save_click_activity_name(name);
 
