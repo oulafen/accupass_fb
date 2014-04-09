@@ -7,14 +7,14 @@ function SMSBid(name, phone, price) {
     this.price = price;
 }
 
-SMSBid.get_message_content = function (message_json) {
-    return message_json.messages[0].message.substring(2).replace(/^\s+$/g, '');
+SMSBid.prototype.save = function () {
+    var bid_peoples = JSON.parse(localStorage.getItem('bid_peoples'))||[];
+    bid_peoples.push(this);
+    localStorage.setItem('bid_peoples', JSON.stringify(bid_peoples));
 }
 
-SMSBid.save_jj_message_to_bid_peoples = function (message) {
-    var bid_peoples = JSON.parse(localStorage.getItem('bid_peoples'))||[];
-    bid_peoples.push(message);
-    localStorage.setItem('bid_peoples', JSON.stringify(bid_peoples));
+SMSBid.get_message_content = function (message_json) {
+    return message_json.messages[0].message.substring(2).replace(/^\s+$/g, '');
 }
 
 SMSBid.refresh_biding = function (flag) {
@@ -67,7 +67,7 @@ SMSBid.jj_status_map = {
     },
     'yellow': function (message) {
         if (!SMSBid.judge_jj_repeat(message.phone)) {
-            SMSBid.save_jj_message_to_bid_peoples(message);
+            message.save();
             SMSBid.refresh_biding('bid');
             Bid.synchronous_show();
             console.log('恭喜！您已竞价成功！');

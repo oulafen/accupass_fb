@@ -5,6 +5,12 @@ function SMSSignUp( name, phone) {
     this.phone = phone;
 }
 
+SMSSignUp.prototype.save = function () {
+    var sign_up = JSON.parse(localStorage.getItem('sign_ups'))||[];
+    sign_up.push(this);
+    localStorage.setItem('sign_ups',JSON.stringify(sign_up));
+}
+
 SMSSignUp.get_message_content = function (message_json) {
     return message_json.messages[0].message.substring(2).replace(/^\s+$/g, '');
 }
@@ -18,12 +24,6 @@ SMSSignUp.judge_bm_repeat = function (phone) {
     return _.find(SignUp.get_present_sign_ups(), function (people) {
         return people.phone == phone
     });
-}
-
-SMSSignUp.save_bm_message_to_sign_ups = function (message) {
-    var sign_up = JSON.parse(localStorage.getItem('sign_ups'))||[];
-    sign_up.push(message);
-    localStorage.setItem('sign_ups',JSON.stringify(sign_up));
 }
 
 SMSSignUp.refresh_apply = function (flag) {
@@ -53,7 +53,7 @@ SMSSignUp.sign_up_status_map = {
     },
     'beginning': function (message) {
         if (!SMSSignUp.judge_bm_repeat(message.phone)) {
-            SMSSignUp.save_bm_message_to_sign_ups(message);
+            message.save();
             SMSSignUp.refresh_apply('sign_up');
             console.log(message.name, '，恭喜你，报名成功！');
         } else {

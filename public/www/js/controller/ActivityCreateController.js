@@ -20,14 +20,15 @@ function ActivityCreateController($scope, $navigate) {
         var activities=JSON.parse(localStorage.getItem('activities'))||[];
         if (Activity.judge_activity_name_is_repeat(name)) {
             $scope.name_repeat = true;
-        }  else{
-            var activity = new Activity(name);
-            activity.save();
-            Activity.save_present_activity_name(name);
-            Activity.save_click_activity_name(name);
-
-            $navigate.go('/sign_ups', 'slide', 'left');
+            return;
         }
+        var activity = new Activity(name);
+        activity.save();
+        Activity.save_present_activity_name(name);
+        Activity.save_click_activity_name(name);
+
+        $navigate.go('/sign_ups', 'slide', 'left');
+
     }
 
     $scope.back_button_status();
