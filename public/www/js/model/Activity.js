@@ -1,13 +1,15 @@
-function Activity(active_name) {
+function Activity(name,status) {
     this.user = localStorage.user;
-    this.active_name = active_name;
-    this.active_status = 'null';
+    this.name = name;
+    this.status = status;
 }
 
-Activity.prototype.save=function(){
+Activity.prototype.create = function () {
     var activities = JSON.parse(localStorage.getItem('activities'));
     activities.unshift(this);
     localStorage.setItem('activities', JSON.stringify(activities));
+    localStorage.setItem('present_activity_name', this.name);
+    localStorage.setItem('click_activity_name',this.name );
 }
 
 Activity.get_activities = function () {
@@ -15,7 +17,11 @@ Activity.get_activities = function () {
     var present_activities = _.filter(activities, function (activity) {
         return activity.user == localStorage.getItem('user');
     });
-    return present_activities || [];
+    var acts=[];
+    _.each(present_activities,function(activity){
+        acts.push(new Activity(activity.name,activity.status))
+    });
+    return acts;
 }
 
 Activity.get_present_activity_name = function () {
@@ -38,7 +44,7 @@ Activity.judge_activity_name_is_repeat = function (name) {
     var activities = Activity.get_activities();
     var repeat_result = false;
     _.each(activities, function (activity) {
-        if (activity.active_name == name) {
+        if (activity.name == name) {
             repeat_result = true;
         }
     });
@@ -49,7 +55,7 @@ Activity.get_click_activity = function () {
     var activities = JSON.parse(localStorage.getItem('activities'));
     var name = localStorage.getItem('click_activity_name');
     return _.find(activities, function (activity) {
-        return activity.active_name == name;
+        return activity.name == name;
     });
 }
 
@@ -57,7 +63,7 @@ Activity.get_present_activity = function () {
     var activities = JSON.parse(localStorage.getItem('activities'));
     var name = localStorage.getItem('present_activity_name');
     return _.find(activities, function (activity) {
-        return activity.active_name == name;
+        return activity.name == name;
     }) || new Activity('');
 }
 
@@ -67,11 +73,11 @@ Activity.synchronous_show = function () {
         url: "/process_phone_data",
         data: {'login_user': localStorage.user, "activities": Activity.get_activities(),
             'sign_ups': SignUp.get_sign_ups_of_present_user(), 'bids': Bid.get_bids_of_present_user(),
-            'bid_peoples': Bid.get_bid_peoples_of_present_user(),'bid_results':Bid.get_bid_result_of_present_user()},
-        success: function( ){
+            'bid_peoples': Bid.get_bid_peoples_of_present_user(), 'bid_results': Bid.get_bid_result_of_present_user()},
+        success: function () {
             alert('同步成功！')
         },
-        error: function( ){
+        error: function () {
             alert('同步失败，请重新上传...')
         }
     });

@@ -12,7 +12,7 @@ SignUp.save_sign_up_status = function (status) {
 SignUp.update_sign_up_activities = function (present_activity) {
     var activities = JSON.parse(localStorage.getItem('activities'));
     _.each(activities, function (activity) {
-        if (activity.active_name == present_activity.active_name) {
+        if (activity.name == present_activity.name) {
             activity.active_status = present_activity.active_status;
         }
     });

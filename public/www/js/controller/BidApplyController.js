@@ -1,4 +1,4 @@
-function BidApplyController($scope, $navigate, $http) {
+function BidApplyController($scope, $navigate) {
     $scope.status_map = {
         'null': 'unbegin',
         'yellow': 'beginning',

@@ -22,13 +22,9 @@ function ActivityCreateController($scope, $navigate) {
             $scope.name_repeat = true;
             return;
         }
-        var activity = new Activity(name);
-        activity.save();
-        Activity.save_present_activity_name(name);
-        Activity.save_click_activity_name(name);
-
+        var activity = new Activity(name,'null');
+        activity.create();
         $navigate.go('/sign_ups', 'slide', 'left');
-
     }
 
     $scope.back_button_status();
