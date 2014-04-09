@@ -44,13 +44,6 @@ Bid.get_bids = function () {
     return bids || [];
 }
 
-//Bid.save_bid_name_to_bids = function (bid_name) {
-//    var bid = new Bid(bid_name);
-//    var bids = Bid.get_bids();
-//    bids.push(bid);
-//    localStorage.setItem('bids', JSON.stringify(bids));
-//}
-
 Bid.get_present_bid = function () {
     return _.find(Bid.get_bids_of_present_activity(), function (bid) {
         return bid.bid_name == localStorage.getItem('present_bid_name')
@@ -180,11 +173,8 @@ Bid.get_bid_result_of_present_user = function () {
     });
     if (bid_result[0] == null) {
         return [Bid.init_bid_result()];
-    } else {
-        return bid_result;
     }
-
-
+    return bid_result;
 }
 
 Bid.post_show_winner = function ($http) {
