@@ -7,6 +7,7 @@
   .modal-footer
     =link_to '确定', manager_index_path, :class=> 'btn btn-default'
 
-
+- session[:success] = nil
 :javascript
   show_change_success()
+

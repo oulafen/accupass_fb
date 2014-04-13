@@ -5,7 +5,6 @@ class AdminController < ApplicationController
       redirect_to :root
     end
     if session[:name]
-      session[:success]=''
       @pages_user = reconstruct_user_list.paginate :page => params[:page], :per_page => 10
     end
   end
@@ -105,7 +104,7 @@ class AdminController < ApplicationController
     if user[:password]!='' && user[:password_confirmation]!='' && user[:password]!=user[:password_confirmation]
       return 'unequal'
     end
-    if user[:password]!='' && user[:password_confirmation]!='' && user[:password]!=user[:password_confirmation]
+    if user[:password]!='' && user[:password_confirmation]!='' && user[:password]==user[:password_confirmation]
       return 'authorized'
     end
   end
